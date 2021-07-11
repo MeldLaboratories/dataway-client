@@ -11,6 +11,7 @@ namespace Dataway_Client
     {
         static int Main(string[] args)
         {
+            // Parse commandline arguments
             return Parser.Default.ParseArguments<Helper.Send, Helper.Register, Helper.Login>(args)
                 .MapResult(
                     (Helper.Send snd) => Actions.Send.Run(snd),

@@ -8,6 +8,9 @@ namespace Dataway_Client.Actions
 {
     class Register
     {
+        /**
+         * Gets executed on the user verb 'register'
+         */
         public static int Run(Helper.Register opts)
         {
             Console.WriteLine("Your register message here.");

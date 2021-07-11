@@ -8,6 +8,9 @@ namespace Dataway_Client.Actions
 {
     class Send
     {
+        /**
+         * Gets executed on the user verb 'send'
+         */
         public static int Run(Helper.Send opts)
         {
             Console.WriteLine("File: " + opts.File);

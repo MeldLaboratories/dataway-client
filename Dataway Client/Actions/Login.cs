@@ -8,6 +8,9 @@ namespace Dataway_Client.Actions
 {
     class Login
     {
+        /**
+         * Gets executed on the user verb 'login'
+         */
         public static int Run(Helper.Login opts)
         {
             Console.WriteLine("Your login message here.");
