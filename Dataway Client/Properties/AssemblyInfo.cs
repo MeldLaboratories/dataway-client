@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("Dataway Client")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Allows end-to-end encrypted file transfers.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("OpenByteCollective")]
 [assembly: AssemblyProduct("Dataway Client")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
+[assembly: AssemblyCopyright("Copyright © OpenByteCollective 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird
-[assembly: Guid("c265943a-4aa6-4ca0-a950-a1ca280ea993")]
+[assembly: Guid("43d26b23-bf10-4b2b-b79a-3723a8025d74")]
 
 // Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
 //
