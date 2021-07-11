@@ -8,3 +8,5 @@ C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Debug\dw.exe
 C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Debug\dw.pdb
 C:\Users\malte\source\repos\C#\Dataway\Dataway Client\obj\Debug\dw.exe
 C:\Users\malte\source\repos\C#\Dataway\Dataway Client\obj\Debug\dw.pdb
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Debug\NamedPipeWrapper.dll
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Debug\NamedPipeWrapper.pdb

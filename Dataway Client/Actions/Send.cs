@@ -13,9 +13,22 @@ namespace Dataway_Client.Actions
          */
         public static int Run(Helper.Send opts)
         {
-            Console.WriteLine("File: " + opts.File);
-            Console.WriteLine("User: " + opts.User);
-            Console.WriteLine("Msg: " + opts.Message);
+            Console.WriteLine("Connecting to worker process...");
+            var client = new Client();
+
+            // wait for connection
+            client.Wait();
+            System.Threading.Thread.Sleep(1000);
+
+            Console.WriteLine("Preparing actions...");
+            var data = new Formats.Data();
+            data.Action = "upload";
+            data.File = opts.File;
+            data.Username = opts.User;
+            data.Message = opts.Message;
+
+            Console.WriteLine("Requesting file transfer...");
+            client.Send(data);
 
             return 0;
         }

@@ -1,0 +1,10 @@
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Release\dw.exe.config
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Release\dw.exe
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Release\dw.pdb
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Release\CommandLine.dll
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Release\CommandLine.xml
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\obj\Release\Dataway Client.csproj.AssemblyReference.cache
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\obj\Release\Dataway Client.csproj.CoreCompileInputs.cache
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\obj\Release\Dataway Client.csproj.CopyComplete
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\obj\Release\dw.exe
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\obj\Release\dw.pdb
