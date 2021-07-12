@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using PLib.SimpleNamedPipeWrapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,26 +13,53 @@ namespace Dataway_Client.Actions
         /**
          * Gets executed on the user verb 'send'
          */
-        public static int Run(Helper.Send opts)
+        public static int Run(Helper.Send opts, SimpleNamedPipeClient client)
         {
             Console.WriteLine("Connecting to worker process...");
-            var client = new Client();
+            client.WaitForConnection();
 
-            // wait for connection
-            client.Wait();
-            System.Threading.Thread.Sleep(1000);
+            Console.WriteLine("Sending command...");
+            var command = new Formats.Send.Command();
+            command.File = opts.File;
+            command.User = opts.User;
+            command.Message = opts.Message;
 
-            Console.WriteLine("Preparing actions...");
-            var data = new Formats.Data();
-            data.Action = "upload";
-            data.File = opts.File;
-            data.Username = opts.User;
-            data.Message = opts.Message;
+            // send command as json
+            client.PushMessage(JsonConvert.SerializeObject(command));
 
-            Console.WriteLine("Requesting file transfer...");
-            client.Send(data);
+            // begin action loop
+            while (true)
+            {
+                var resp = client.WaitForResponse();
+                var baseData = JsonConvert.DeserializeObject<Formats.Base>(resp);
 
-            return 0;
+                // handle Send actions
+                if (baseData.Action.ToUpper() == "SEND")
+                {
+                    // TODO: add send actions
+                }
+
+                // handle Generic actions
+                if (baseData.Action.ToUpper() == "GENERIC")
+                {
+                    switch (baseData.Type.ToUpper())
+                    {
+                        case "MESSAGE":
+                            break;
+
+                        case "ERROR":
+                            var data = JsonConvert.DeserializeObject<Formats.Generic.Error>(resp);
+                            Console.WriteLine("\nThe worker process reported an error.\nError: {0}\nCode: {1}", data.Text, data.Code);
+                            return data.Code;
+
+                        case "COMPLETE":
+                            return 0;
+
+                        default:
+                            break;
+                    }
+                }
+            }
         }
     }
 }

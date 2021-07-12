@@ -8,5 +8,8 @@ C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Debug\dw.exe
 C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Debug\dw.pdb
 C:\Users\malte\source\repos\C#\Dataway\Dataway Client\obj\Debug\dw.exe
 C:\Users\malte\source\repos\C#\Dataway\Dataway Client\obj\Debug\dw.pdb
-C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Debug\NamedPipeWrapper.dll
-C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Debug\NamedPipeWrapper.pdb
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Debug\PLib.dll
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Debug\PLib.pdb
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Debug\Newtonsoft.Json.dll
+C:\Users\malte\source\repos\C#\Dataway\Dataway Client\bin\Debug\Newtonsoft.Json.xml

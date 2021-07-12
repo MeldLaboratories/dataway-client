@@ -1,10 +1,13 @@
 C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\bin\Debug\Dataway Worker.exe.config
 C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\bin\Debug\Dataway Worker.exe
 C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\bin\Debug\Dataway Worker.pdb
-C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\bin\Debug\NamedPipeWrapper.dll
-C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\bin\Debug\NamedPipeWrapper.pdb
 C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\obj\Debug\Dataway Worker.csproj.AssemblyReference.cache
 C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\obj\Debug\Dataway Worker.csproj.CoreCompileInputs.cache
 C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\obj\Debug\Dataway Worker.csproj.CopyComplete
 C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\obj\Debug\Dataway Worker.exe
 C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\obj\Debug\Dataway Worker.pdb
+C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\bin\Debug\PLib.dll
+C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\bin\Debug\PLib.pdb
+C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\bin\Debug\Newtonsoft.Json.dll
+C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\bin\Debug\Newtonsoft.Json.xml

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PLib.SimpleNamedPipeWrapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Dataway_Client.Actions
         /**
          * Gets executed on the user verb 'register'
          */
-        public static int Run(Helper.Register opts)
+        public static int Run(Helper.Register opts, SimpleNamedPipeClient client)
         {
             Console.WriteLine("Your register message here.");
 

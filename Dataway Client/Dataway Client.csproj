@@ -42,8 +42,11 @@
     <Reference Include="CommandLine, Version=2.8.0.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
       <HintPath>..\packages\CommandLineParser.2.8.0\lib\net461\CommandLine.dll</HintPath>
     </Reference>
-    <Reference Include="NamedPipeWrapper, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NamedPipeWrapper.1.5.0\lib\net40\NamedPipeWrapper.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PLib">
+      <HintPath>D:\Projekte\C#\PToys\PToys\bin\Debug\PLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -58,8 +61,11 @@
     <Compile Include="Actions\Login.cs" />
     <Compile Include="Actions\Register.cs" />
     <Compile Include="Actions\Send.cs" />
-    <Compile Include="Client.cs" />
-    <Compile Include="Formats\Data.cs" />
+    <Compile Include="Formats\Base.cs" />
+    <Compile Include="Formats\Generic\Complete.cs" />
+    <Compile Include="Formats\Generic\Error.cs" />
+    <Compile Include="Formats\Generic\Message.cs" />
+    <Compile Include="Formats\Send\Command.cs" />
     <Compile Include="Helper\Login.cs" />
     <Compile Include="Helper\Register.cs" />
     <Compile Include="Helper\Send.cs" />
@@ -73,5 +79,6 @@
   <ItemGroup>
     <Content Include="app.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

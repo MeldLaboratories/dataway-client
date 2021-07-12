@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dataway_Worker.Actions
+namespace Dataway_Client.Formats
 {
-    class Upload
+    class Base
     {
+        public string Type = "Basic";
+        public string Action = "Generic";
     }
 }
