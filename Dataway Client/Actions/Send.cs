@@ -1,18 +1,15 @@
 ﻿using Newtonsoft.Json;
 using PLib.SimpleNamedPipeWrapper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dataway_Client.Actions
 {
-    class Send
+    internal class Send
     {
         /**
          * Gets executed on the user verb 'send'
          */
+
         public static int Run(Helper.Send opts, SimpleNamedPipeClient client)
         {
             Console.WriteLine("Connecting to worker process...");

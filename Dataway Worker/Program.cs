@@ -1,18 +1,14 @@
 ﻿using Newtonsoft.Json;
 using PLib.SimpleNamedPipeWrapper;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO.Pipes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace Dataway_Worker
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("> Dataway Worker <");
 
@@ -20,11 +16,17 @@ namespace Dataway_Worker
             var server = new SimpleNamedPipeServer("Dataway");
             server.Start();
 
+            // start dataway client
+            var client = new Client(new IPAddress(new Byte[] { 127, 0, 0, 1 }), 3003);
+            // TODO: add error handling
+            // TODO: add ip switch
+
             server.ClientConnected += delegate (SimpleNamedPipeServer _)
             {
                 Console.WriteLine("User connected");
 
-                while(server.IsConnected)
+                // handle data
+                while (server.IsConnected)
                 {
                     var msg = server.WaitForResponse(1000);
                     if (msg == "" || msg == null) continue;
@@ -39,8 +41,67 @@ namespace Dataway_Worker
                         switch (rawData.Type.ToUpper())
                         {
                             case "REQUEST":
-                                // Todo: upload code here
+                                try
+                                {
+                                    Actions.Send.Request(server, client, JsonConvert.DeserializeObject<Formats.Send.Command>(msg));
+                                }
+                                catch (Exception err)
+                                {
+                                    server.PushMessage(JsonConvert.SerializeObject(CreateError(err)));
+                                    continue;
+                                }
 
+                                // return success
+                                server.PushMessage(JsonConvert.SerializeObject(new Formats.Generic.Complete()));
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+
+                    // handle login objects
+                    if (rawData.Action.ToUpper() == "LOGIN")
+                    {
+                        switch (rawData.Type.ToUpper())
+                        {
+                            case "REQUEST":
+                                try
+                                {
+                                    Actions.Login.PerformLogin(server, client, JsonConvert.DeserializeObject<Formats.Login.Command>(msg));
+                                }
+                                catch (Exception err)
+                                {
+                                    server.PushMessage(JsonConvert.SerializeObject(CreateError(err)));
+                                    continue;
+                                }
+
+                                // return success
+                                server.PushMessage(JsonConvert.SerializeObject(new Formats.Generic.Complete()));
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+
+                    // handle login objects
+                    if (rawData.Action.ToUpper() == "REGISTER")
+                    {
+                        switch (rawData.Type.ToUpper())
+                        {
+                            case "REQUEST":
+                                try
+                                {
+                                    Actions.Register.PerformRegister(server, client, JsonConvert.DeserializeObject<Formats.Register.Command>(msg));
+                                }
+                                catch (Exception err)
+                                {
+                                    server.PushMessage(JsonConvert.SerializeObject(CreateError(err)));
+                                    continue;
+                                }
+
+                                // return success
                                 server.PushMessage(JsonConvert.SerializeObject(new Formats.Generic.Complete()));
                                 break;
 
@@ -70,8 +131,15 @@ namespace Dataway_Worker
                 }
             };
 
-
             Process.GetCurrentProcess().WaitForExit();
+        }
+
+        private static Formats.Generic.Error CreateError(Exception err)
+        {
+            var response = new Formats.Generic.Error();
+            response.Code = err.GetHashCode();
+            response.Text = err.Message;
+            return response;
         }
     }
 }

@@ -65,6 +65,8 @@
     <Compile Include="Formats\Generic\Complete.cs" />
     <Compile Include="Formats\Generic\Error.cs" />
     <Compile Include="Formats\Generic\Message.cs" />
+    <Compile Include="Formats\Register\Command.cs" />
+    <Compile Include="Formats\Login\Command.cs" />
     <Compile Include="Formats\Send\Command.cs" />
     <Compile Include="Helper\Login.cs" />
     <Compile Include="Helper\Register.cs" />
