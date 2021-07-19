@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Pipes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommandLine;
 using PLib.SimpleNamedPipeWrapper;
-using CommandLine;
 
 namespace Dataway_Client
 {
-    class Program
+    internal class Program
     {
-        static int Main(string[] args)
+        private static int Main(string[] args)
         {
             // start pipe client
             var client = new SimpleNamedPipeClient("Dataway");
