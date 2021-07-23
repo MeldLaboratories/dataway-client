@@ -13,15 +13,29 @@ namespace Dataway_Worker
         // Auto Reset Events & their Variables
         //
 
+        private AutoResetEvent connectEvent = new AutoResetEvent(false);
         private AutoResetEvent loginEvent = new AutoResetEvent(false);
         private AutoResetEvent registerEvent = new AutoResetEvent(false);
         private AutoResetEvent logoutEvent = new AutoResetEvent(false);
         private AutoResetEvent sendFileEvent = new AutoResetEvent(false);
 
+        private Dataway_Worker.Formats.Communication.Local.ConnectEventData connectEventData = new Dataway_Worker.Formats.Communication.Local.ConnectEventData();
         private Dataway_Worker.Formats.Communication.Local.LoginEventData loginEventData = new Dataway_Worker.Formats.Communication.Local.LoginEventData();
         private Dataway_Worker.Formats.Communication.Local.RegisterEventData registerEventData = new Dataway_Worker.Formats.Communication.Local.RegisterEventData();
         private Dataway_Worker.Formats.Communication.Local.LogoutEventData logoutEventData = new Dataway_Worker.Formats.Communication.Local.LogoutEventData();
         private Dataway_Worker.Formats.Communication.Local.SendFileEventData sendFileEventData = new Dataway_Worker.Formats.Communication.Local.SendFileEventData();
+
+
+        //
+        // Events
+        //
+
+        public delegate void TransmitRequestRecievedEvent(object invoker, string sender, string message, string filename, int filesizeMB);
+        public delegate void ErrorEvent(object invoker, Exception e);
+
+        public event TransmitRequestRecievedEvent OnTransmitRequest;
+        public event ErrorEvent OnError;
+
 
         //
         // Variables
@@ -29,43 +43,40 @@ namespace Dataway_Worker
 
         private Dataway_Worker.Formats.Communication.Local.NextFileRecieveData nextFileRecieveData = new Dataway_Worker.Formats.Communication.Local.NextFileRecieveData();
 
-        private DWSocket socket;
+        private TSocket socket;
 
-        public Client(IPAddress addr, int port)
+        public Client()
         {
             this.nextFileRecieveData.filetype = "json";
-
-            socket = new DWSocket(addr, port);
-            socket.OnDataRecieved += this.DataParser;
-
-            /*
-            while (true)
-            {
-                Console.Write("Filename: ");
-                var fn = Console.ReadLine();
-                Console.Write("Reciever: ");
-                var reciever = Console.ReadLine();
-
-                //this.socket.SendFile(@"C:\Users\tensoid\Desktop\testFile.txt", "KEKFILE.txt", reciever);
-                var json = new Dataway_Worker.Formats.Communication.Send.TransmitRequest();
-                json.filetype = "txt";
-                json.filename = fn;
-                json.reciever = reciever;
-
-                this.socket.SendJson(json);
-
-                this.nextFileSendData.path = Environment.CurrentDirectory + "\\test.txt";
-
-                Utils.WriteLineColor("Sent TransmitRequest", ConsoleColor.Yellow);
-            }
-            */
         }
+
+
 
         #region Public Methods
 
         //
         // Public Methods
         //
+
+        public Result Connect(IPAddress addr, int port)
+        {
+            socket = new TSocket(addr, port);
+            TSocket.CONN_RESULT res = socket.Connect();
+
+            if(res == TSocket.CONN_RESULT.CONNECTION_SUCCESSFUL)
+            {
+                socket.OnDataRecieved += this.DataParser;
+                return new Result(Result.CODE.SUCCESS);
+            }
+            else if(res == TSocket.CONN_RESULT.CONNECTION_REFUSED)
+            {
+                return new Result(Result.CODE.CONNECTION_REFUSED);
+            }
+            else
+            {
+                throw new Exception("Unknown exception during socket connection.");
+            } 
+        }
 
         public Result Login(string username, string password)
         {
@@ -102,18 +113,19 @@ namespace Dataway_Worker
 
         public Result SendFile(string path, string filename, string reciever)
         {
+            //Send request
             var json = new Dataway_Worker.Formats.Communication.Send.TransmitRequest();
             json.filename = filename;
             json.reciever = reciever;
 
             this.socket.SendJson(json);
 
-            this.sendFileEventData.path = Environment.CurrentDirectory + "\\test.txt";
-
+            //Wait for response
             sendFileEvent.WaitOne();
 
-            this.socket.SendFile(this.sendFileEventData.path);
-            //pause and check with checksum
+            //ACt accordingly to response
+            this.socket.SendFile(path);
+            //TODO: pause and check with checksum
             return new Result(Result.CODE.SUCCESS);
         }
 
@@ -125,9 +137,15 @@ namespace Dataway_Worker
         // Server responses
         //
 
+        private void ConnectResult(int code)
+        {
+            connectEventData.resultCode = code;
+            connectEvent.Set();
+        }
+
         private void LoginResult(int code)
         {
-            this.loginEventData.resultCode = code;
+            loginEventData.resultCode = code;
             loginEvent.Set();
         }
 
@@ -145,7 +163,8 @@ namespace Dataway_Worker
 
         private void TransmitRequestResult(int code)
         {
-            this.socket.SendFile(this.sendFileEventData.path);
+            sendFileEventData.resultCode = code;
+            sendFileEvent.Set();
         }
 
         #endregion Server responses
@@ -165,10 +184,12 @@ namespace Dataway_Worker
             this.socket.SendJson(json);
         }
 
-        private void Error(Dataway_Worker.Formats.Communication.Recieve.Error error)
+
+        public void ErrorEventHandler(object sender, Exception e)
         {
-            throw new Exception("Unknown Error: " + error.code);
+
         }
+
 
         private void DataParser(object sender, byte[] buffer, int bytes)
         {
@@ -197,6 +218,10 @@ namespace Dataway_Worker
 
                     switch (result.origin)
                     {
+                        case "connect":
+                            this.ConnectResult(result.code);
+                            break;
+
                         case "login":
                             this.LoginResult(result.code);
                             break;
@@ -225,11 +250,6 @@ namespace Dataway_Worker
                         case "transmitRequest":
                             var transmitRequest = JsonConvert.DeserializeObject<Dataway_Worker.Formats.Communication.Recieve.TransmitRequest>(data);
                             this.TransmitRequest(transmitRequest);
-                            break;
-
-                        case "Error":
-                            var error = JsonConvert.DeserializeObject<Dataway_Worker.Formats.Communication.Recieve.Error>(data);
-                            this.Error(error);
                             break;
 
                         default:

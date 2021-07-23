@@ -2,6 +2,6 @@
 {
     internal class SendFileEventData
     {
-        public string path;
+        public int resultCode;
     }
 }

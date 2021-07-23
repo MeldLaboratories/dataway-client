@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using PLib.SimpleNamedPipeWrapper;
+using System;
 
 namespace Dataway_Client
 {
@@ -8,7 +9,11 @@ namespace Dataway_Client
         private static int Main(string[] args)
         {
             // start pipe client
-            var client = new SimpleNamedPipeClient("Dataway");
+            Console.Write("Pipename: ");
+            string pipeName = Console.ReadLine();//DEBUG
+
+            var client = new SimpleNamedPipeClient(pipeName);
+            //var client = new SimpleNamedPipeClient("Dataway");
             client.Start();
 
             // Parse commandline arguments

@@ -1,12 +1,16 @@
 ﻿namespace Dataway_Worker
 {
+    //TODO: put result somewhere better like in client class
     public class Result
     {
         public int code;
         public string message;
 
+        //NEGATIVE == SOCKET ERROR
+        //POSITVE == SERVER/CLIENT ERROR or RESPONSE
         public enum CODE
         {
+            CONNECTION_REFUSED = -1,
             SUCCESS = 0,
             BAD_LOGIN = 1,
             DECLINED_TRANSMIT_REQUEST = 2,
@@ -33,8 +37,11 @@
                 case CODE.DECLINED_TRANSMIT_REQUEST:
                     return "Transmit request was declined by client";
 
+                case CODE.CONNECTION_REFUSED:
+                    return "Connection was refused by the server";
+
                 default:
-                    return "Unknown error type";
+                    return "Unknown result type";
             }
         }
     }

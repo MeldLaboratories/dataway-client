@@ -11,3 +11,15 @@ C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\bin\Debug\System.Runtime.C
 C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\bin\Debug\PLib.pdb
 C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\bin\Debug\Newtonsoft.Json.dll
 C:\Users\malte\source\repos\C#\Dataway\Dataway Worker\bin\Debug\Newtonsoft.Json.xml
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\obj\Debug\Dataway Worker.csprojAssemblyReference.cache
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\obj\Debug\Dataway Worker.csproj.CoreCompileInputs.cache
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\obj\Debug\Dataway Worker.exe
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\obj\Debug\Dataway Worker.pdb
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\Dataway Worker.exe.config
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\Dataway Worker.exe
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\Dataway Worker.pdb
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\Newtonsoft.Json.dll
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\Newtonsoft.Json.xml
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\PLib.pdb
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\obj\Debug\Dataway Worker.csproj.CopyComplete

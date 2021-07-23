@@ -12,12 +12,18 @@ namespace Dataway_Worker
         {
             Console.WriteLine("> Dataway Worker <");
 
+            Console.Write("Pipename: ");
+            string pipeName = Console.ReadLine(); // DEBUG
+
             // start pipe server
-            var server = new SimpleNamedPipeServer("Dataway");
+            var server = new SimpleNamedPipeServer(pipeName);
+            //var server = new SimpleNamedPipeServer("Dataway");
             server.Start();
 
             // start dataway client
-            var client = new Client(new IPAddress(new Byte[] { 127, 0, 0, 1 }), 3003);
+            var client = new Client();
+            var res = client.Connect(new IPAddress(new Byte[] { 127, 0, 0, 1 }), 3003);
+            Console.WriteLine("Connection to server: " + res.message);
             // TODO: add error handling
             // TODO: add ip switch
 
