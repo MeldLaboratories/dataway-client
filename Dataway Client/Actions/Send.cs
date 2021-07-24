@@ -10,8 +10,11 @@ namespace Dataway_Client.Actions
          * Gets executed on the user verb 'send'
          */
 
-        public static int Run(Helper.Send opts, SimpleNamedPipeClient client)
+        public static int Run(Helper.Send opts)
         {
+            // spawn pipe client
+            var client = PipeSpawner.Spawn(opts.Pipename);
+
             Console.WriteLine("Connecting to worker process...");
             client.WaitForConnection();
 

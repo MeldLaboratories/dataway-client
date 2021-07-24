@@ -8,20 +8,16 @@ namespace Dataway_Client
     {
         private static int Main(string[] args)
         {
-            // start pipe client
-            Console.Write("Pipename: ");
-            string pipeName = Console.ReadLine();//DEBUG
-
-            var client = new SimpleNamedPipeClient(pipeName);
-            //var client = new SimpleNamedPipeClient("Dataway");
+            var client = new SimpleNamedPipeClient("Dataway");
             client.Start();
 
             // Parse commandline arguments
-            return Parser.Default.ParseArguments<Helper.Send, Helper.Register, Helper.Login>(args)
+            return Parser.Default.ParseArguments<Helper.Send, Helper.Register, Helper.Login, Helper.Debug>(args)
                 .MapResult(
-                    (Helper.Send snd) => Actions.Send.Run(snd, client),
-                    (Helper.Register rgs) => Actions.Register.Run(rgs, client),
-                    (Helper.Login lgn) => Actions.Login.Run(lgn, client),
+                    (Helper.Send snd) => Actions.Send.Run(snd),
+                    (Helper.Register rgs) => Actions.Register.Run(rgs),
+                    (Helper.Login lgn) => Actions.Login.Run(lgn),
+                    (Helper.Debug dbg) => Actions.Debug.Run(dbg),
 
                     errs => 1
                 );
