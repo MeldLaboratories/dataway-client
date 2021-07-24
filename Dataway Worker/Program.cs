@@ -179,7 +179,7 @@ namespace Dataway_Worker
 
             // get value of switch
             result = args[i + 1];
-            return result + i;
+            return result;
         }
     }
 }
