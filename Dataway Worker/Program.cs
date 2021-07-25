@@ -26,6 +26,7 @@ namespace Dataway_Worker
             // start dataway client
             var res = client.Connect(new IPAddress(new Byte[] { 127, 0, 0, 1 }), 3003);
             Console.WriteLine("Connection to server: " + res.message);
+
             // TODO: check if result is a success
             client.OnTransmitRequest += HandleTransmitRequest;
 
