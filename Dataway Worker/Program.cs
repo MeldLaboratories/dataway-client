@@ -8,6 +8,9 @@ namespace Dataway_Worker
 {
     internal class Program
     {
+
+        public static Client client = new Client();
+
         private static void Main(string[] args)
         {
             Console.WriteLine("> Dataway Worker <");
@@ -21,9 +24,11 @@ namespace Dataway_Worker
             server.Start();
 
             // start dataway client
-            var client = new Client();
             var res = client.Connect(new IPAddress(new Byte[] { 127, 0, 0, 1 }), 3003);
             Console.WriteLine("Connection to server: " + res.message);
+            // TODO: check if result is a success
+            client.OnTransmitRequest += HandleTransmitRequest;
+
             // TODO: add error handling
             // TODO: add ip switch
 
@@ -146,6 +151,21 @@ namespace Dataway_Worker
             response.Code = err.GetHashCode();
             response.Text = err.Message;
             return response;
+        }
+
+
+        private static void HandleTransmitRequest(object invoker, string sender, string message, string filename, int filesizeMB)
+        {
+            Console.WriteLine("Incoming transmit request from {0} with file {1}({2}MB) with message {3}", sender, filename, filesizeMB, message);
+            Console.Write("Accept? y/n  ");
+            string res = Console.ReadLine();
+
+            if(res == "y" || res == "Y")
+            {
+                client.AcceptCurrentTransmitRequest(); //TODO: add multiple requests at same time or block other incoming requests
+            }
+
+            else client.DeclineCurrentTransmitRequest();
         }
     }
 }

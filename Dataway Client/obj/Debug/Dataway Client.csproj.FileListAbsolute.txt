@@ -27,3 +27,17 @@ D:\Stash\Code\Dataway\dataway-client\Dataway Client\obj\Debug\Dataway Client.csp
 D:\Stash\Code\Dataway\dataway-client\Dataway Client\obj\Debug\Dataway Client.csproj.CopyComplete
 D:\Stash\Code\Dataway\dataway-client\Dataway Client\obj\Debug\dw.exe
 D:\Stash\Code\Dataway\dataway-client\Dataway Client\obj\Debug\dw.pdb
+T:\Code\Dataway\dataway-client\Dataway Client\bin\Debug\dw.exe.config
+T:\Code\Dataway\dataway-client\Dataway Client\bin\Debug\dw.exe
+T:\Code\Dataway\dataway-client\Dataway Client\bin\Debug\dw.pdb
+T:\Code\Dataway\dataway-client\Dataway Client\bin\Debug\CommandLine.dll
+T:\Code\Dataway\dataway-client\Dataway Client\bin\Debug\Newtonsoft.Json.dll
+T:\Code\Dataway\dataway-client\Dataway Client\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+T:\Code\Dataway\dataway-client\Dataway Client\bin\Debug\CommandLine.xml
+T:\Code\Dataway\dataway-client\Dataway Client\bin\Debug\Newtonsoft.Json.xml
+T:\Code\Dataway\dataway-client\Dataway Client\bin\Debug\PLib.pdb
+T:\Code\Dataway\dataway-client\Dataway Client\obj\Debug\Dataway Client.csproj.AssemblyReference.cache
+T:\Code\Dataway\dataway-client\Dataway Client\obj\Debug\Dataway Client.csproj.CoreCompileInputs.cache
+T:\Code\Dataway\dataway-client\Dataway Client\obj\Debug\Dataway Client.csproj.CopyComplete
+T:\Code\Dataway\dataway-client\Dataway Client\obj\Debug\dw.exe
+T:\Code\Dataway\dataway-client\Dataway Client\obj\Debug\dw.pdb

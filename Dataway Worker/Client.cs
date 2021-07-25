@@ -18,12 +18,14 @@ namespace Dataway_Worker
         private AutoResetEvent registerEvent = new AutoResetEvent(false);
         private AutoResetEvent logoutEvent = new AutoResetEvent(false);
         private AutoResetEvent sendFileEvent = new AutoResetEvent(false);
+        private AutoResetEvent transmitRequestEvent = new AutoResetEvent(false);
 
         private Dataway_Worker.Formats.Communication.Local.ConnectEventData connectEventData = new Dataway_Worker.Formats.Communication.Local.ConnectEventData();
-        private Dataway_Worker.Formats.Communication.Local.LoginEventData loginEventData = new Dataway_Worker.Formats.Communication.Local.LoginEventData();
+        private Dataway_Worker.Formats.Communication.Local.TransmitRequestEventData loginEventData = new Dataway_Worker.Formats.Communication.Local.TransmitRequestEventData();
         private Dataway_Worker.Formats.Communication.Local.RegisterEventData registerEventData = new Dataway_Worker.Formats.Communication.Local.RegisterEventData();
         private Dataway_Worker.Formats.Communication.Local.LogoutEventData logoutEventData = new Dataway_Worker.Formats.Communication.Local.LogoutEventData();
         private Dataway_Worker.Formats.Communication.Local.SendFileEventData sendFileEventData = new Dataway_Worker.Formats.Communication.Local.SendFileEventData();
+        private Dataway_Worker.Formats.Communication.Local.TransmitRequestEventData transmitRequestEventData = new Dataway_Worker.Formats.Communication.Local.TransmitRequestEventData();
 
 
         //
@@ -129,6 +131,22 @@ namespace Dataway_Worker
             return new Result(Result.CODE.SUCCESS);
         }
 
+
+        public Result AcceptCurrentTransmitRequest()
+        {
+            transmitRequestEventData.resultCode = (int)Result.CODE.SUCCESS;
+            transmitRequestEvent.Set(); //TODO: what if event not waiting
+            return new Result(Result.CODE.SUCCESS);
+        }
+
+
+        public Result DeclineCurrentTransmitRequest()
+        {
+            transmitRequestEventData.resultCode = (int)Result.CODE.DECLINED_TRANSMIT_REQUEST;
+            transmitRequestEvent.Set(); //TODO: what if event not waiting
+            return new Result(Result.CODE.SUCCESS);
+        }
+
         #endregion Public Methods
 
         #region Server responses
@@ -171,16 +189,21 @@ namespace Dataway_Worker
 
         private void TransmitRequest(Dataway_Worker.Formats.Communication.Recieve.TransmitRequest transmitRequest)
         {
-            //TODO: accept or decline?
+            //NOTIFY USER AND GET RESPONSE
+            OnTransmitRequest?.Invoke(this, transmitRequest.sender, transmitRequest.message, transmitRequest.filename, transmitRequest.filesizeMB);
+            transmitRequestEvent.WaitOne();
 
-            //CASE ACCEPT
-            this.nextFileRecieveData.filename = transmitRequest.filename;
-            this.nextFileRecieveData.filetype = "other";
-            this.nextFileRecieveData.sender = transmitRequest.sender;
+            if (transmitRequestEventData.resultCode == (int)Result.CODE.SUCCESS)
+            {
+                //CASE ACCEPT
+                this.nextFileRecieveData.filename = transmitRequest.filename;
+                this.nextFileRecieveData.filetype = "other";
+                this.nextFileRecieveData.sender = transmitRequest.sender;
+            }
 
             var json = new Dataway_Worker.Formats.Communication.Send.TransmitRequestResult();
             json.reciever = transmitRequest.sender;
-            json.result = (int)Result.CODE.SUCCESS;
+            json.result = transmitRequestEventData.resultCode;
             this.socket.SendJson(json);
         }
 

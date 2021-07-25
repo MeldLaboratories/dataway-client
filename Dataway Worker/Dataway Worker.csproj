@@ -53,10 +53,11 @@
     <Compile Include="Actions\Login.cs" />
     <Compile Include="Actions\Send.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="Formats\Communication\Local\LoginEventData.cs" />
     <Compile Include="TSocket.cs" />
     <Compile Include="Formats\Base.cs" />
     <Compile Include="Formats\Communication\Local\ConnectEventData.cs" />
-    <Compile Include="Formats\Communication\Local\LoginEventData.cs" />
+    <Compile Include="Formats\Communication\Local\TransmitRequestEventData.cs" />
     <Compile Include="Formats\Communication\Local\LogoutEventData.cs" />
     <Compile Include="Formats\Communication\Local\NextFileRecieveData.cs" />
     <Compile Include="Formats\Communication\Local\RegisterEventData.cs" />
