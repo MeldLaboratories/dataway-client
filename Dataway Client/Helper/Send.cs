@@ -3,7 +3,7 @@
 namespace Dataway_Client.Helper
 {
     [Verb("send", HelpText = "Send a file to a user.")]
-    internal class Send
+    internal class Send : Generic
     {
         [Option('f', "file", Required = true, HelpText = "The file to be sent.")]
         public string File { get; set; }

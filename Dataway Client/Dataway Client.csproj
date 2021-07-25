@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Actions\Login.cs" />
     <Compile Include="Actions\Register.cs" />
+    <Compile Include="Actions\Debug.cs" />
     <Compile Include="Actions\Send.cs" />
     <Compile Include="Formats\Base.cs" />
     <Compile Include="Formats\Generic\Complete.cs" />
@@ -68,9 +69,12 @@
     <Compile Include="Formats\Register\Command.cs" />
     <Compile Include="Formats\Login\Command.cs" />
     <Compile Include="Formats\Send\Command.cs" />
+    <Compile Include="Helper\Generic.cs" />
     <Compile Include="Helper\Login.cs" />
     <Compile Include="Helper\Register.cs" />
+    <Compile Include="Helper\Debug.cs" />
     <Compile Include="Helper\Send.cs" />
+    <Compile Include="PipeSpawner.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

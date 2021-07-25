@@ -10,8 +10,11 @@ namespace Dataway_Client.Actions
          * Gets executed on the user verb 'login'
          */
 
-        public static int Run(Helper.Login opts, SimpleNamedPipeClient client)
+        public static int Run(Helper.Login opts)
         {
+            // spawn pipe client
+            var client = PipeSpawner.Spawn(opts.Pipename);
+
             // wait for user input
             Console.Write("Username: ");
             var user = Console.ReadLine();

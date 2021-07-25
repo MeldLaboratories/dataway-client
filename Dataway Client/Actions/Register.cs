@@ -10,8 +10,11 @@ namespace Dataway_Client.Actions
          * Gets executed on the user verb 'register'
          */
 
-        public static int Run(Helper.Register opts, SimpleNamedPipeClient client)
+        public static int Run(Helper.Register opts)
         {
+            // spawn pipe client
+            var client = PipeSpawner.Spawn(opts.Pipename);
+
             string user, pw = "?", pwr = "!";
 
             do
