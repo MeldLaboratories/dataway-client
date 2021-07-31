@@ -17,7 +17,7 @@ namespace Dataway_Worker
             // set a custom pipe server name by commandline arguments, else fallback to "Dataway"
             var pipename = "Dataway";
             if (GetValueOfSwitch("--pipe") != "") pipename = GetValueOfSwitch("--pipe");
-            if (GetValueOfSwitch("-p") != "") pipename = GetValueOfSwitch("--pipe");
+            if (GetValueOfSwitch("-p") != "") pipename = GetValueOfSwitch("-p");
             if (pipename != "Dataway") Console.WriteLine("Custom Pipe-Server Name: {0}", pipename);
 
             // start pipe server
@@ -25,7 +25,8 @@ namespace Dataway_Worker
             server.Start();
 
             // start dataway client
-            var res = client.Connect(new IPAddress(new Byte[] { 127, 0, 0, 1 }), 3003);
+            IPAddress ip = Dns.GetHostAddresses("kevin-ortmann.com")[0];
+            var res = client.Connect(ip, 2000);
             Console.WriteLine("Connection to server: " + res.message);
 
             // TODO: check if result is a success

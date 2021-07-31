@@ -1,6 +1,7 @@
 ﻿namespace Dataway_Worker
 {
     //TODO: put result somewhere better like in client class
+    //TODO: make more result types
     public class Result
     {
         public int code;

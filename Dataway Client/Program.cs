@@ -8,9 +8,6 @@ namespace Dataway_Client
     {
         private static int Main(string[] args)
         {
-            var client = new SimpleNamedPipeClient("Dataway");
-            client.Start();
-
             // Parse commandline arguments
             return Parser.Default.ParseArguments<Helper.Send, Helper.Register, Helper.Login, Helper.Debug>(args)
                 .MapResult(

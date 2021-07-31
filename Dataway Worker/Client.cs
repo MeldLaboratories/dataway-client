@@ -96,7 +96,7 @@ namespace Dataway_Worker
             var json = new Dataway_Worker.Formats.Communication.Send.Register();
             json.username = username;
             json.password = password;
-            this.socket.SendJson(json);
+            this.socket.SendJson(json); //TODO: TIMEOUT
 
             registerEvent.WaitOne();
             return new Result(Result.CODE.SUCCESS);
