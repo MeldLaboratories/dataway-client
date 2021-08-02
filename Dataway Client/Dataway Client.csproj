@@ -71,6 +71,7 @@
     <Compile Include="Formats\Generic\Message.cs" />
     <Compile Include="Formats\Register\Command.cs" />
     <Compile Include="Formats\Login\Command.cs" />
+    <Compile Include="Formats\Send\Context.cs" />
     <Compile Include="Formats\Send\Command.cs" />
     <Compile Include="Helper\DelQuick.cs" />
     <Compile Include="Helper\AddQuick.cs" />

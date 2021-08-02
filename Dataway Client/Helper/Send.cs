@@ -13,5 +13,8 @@ namespace Dataway_Client.Helper
 
         [Option('m', "message", HelpText = "Send a message to the target user.")]
         public string Message { get; set; }
+
+        [Option('c', "context", Hidden = true)]
+        public bool Context { get; set; }
     }
 }

@@ -19,13 +19,23 @@ namespace Dataway_Client.Actions
             client.WaitForConnection();
 
             Console.WriteLine("Sending command...");
-            var command = new Formats.Send.Command();
-            command.File = opts.File;
-            command.User = opts.User;
-            command.Message = opts.Message;
+            if (!opts.Context)
+            {
+                var command = new Formats.Send.Command();
+                command.File = opts.File;
+                command.User = opts.User;
+                command.Message = opts.Message;
 
-            // send command as json
-            client.PushMessage(JsonConvert.SerializeObject(command));
+                // send command as json
+                client.PushMessage(JsonConvert.SerializeObject(command));
+            } else
+            {
+                var command = new Formats.Send.Context();
+                command.File = opts.File;
+
+                // send command as json
+                client.PushMessage(JsonConvert.SerializeObject(command));
+            }
 
             // begin action loop
             while (true)
@@ -60,6 +70,9 @@ namespace Dataway_Client.Actions
                     }
                 }
             }
+
+
         }
+
     }
 }
