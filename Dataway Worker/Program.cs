@@ -11,6 +11,7 @@ namespace Dataway_Worker
     {
 
         public static Client client = new Client();
+        
 
         private static void Main(string[] args)
         {
@@ -29,8 +30,11 @@ namespace Dataway_Worker
             var res = client.Connect(ip, 2000);
             Console.WriteLine("Connection to server: " + res.message);
 
-            // TODO: check if result is a success
+            // transmit request listener
             client.OnTransmitRequest += HandleTransmitRequest;
+
+            // toast listener
+            Toaster.HandleToastResponses(client);
 
             // TODO: add error handling
             // TODO: add ip switch
@@ -47,7 +51,7 @@ namespace Dataway_Worker
 
                     var rawData = JsonConvert.DeserializeObject<Formats.Base>(msg);
 
-                    Console.WriteLine(msg);
+                    //Console.WriteLine(msg);
 
                     // handle send objects
                     if (rawData.Action.ToUpper() == "SEND")
@@ -193,15 +197,8 @@ namespace Dataway_Worker
         private static void HandleTransmitRequest(object invoker, string sender, string message, string filename, int filesizeMB)
         {
             Console.WriteLine("Incoming transmit request from {0} with file {1}({2}MB) with message {3}", sender, filename, filesizeMB, message);
-            Console.Write("Accept? y/n  ");
-            string res = Console.ReadLine();
 
-            if(res == "y" || res == "Y")
-            {
-                client.AcceptCurrentTransmitRequest(); //TODO: add multiple requests at same time or block other incoming requests
-            }
-
-            else client.DeclineCurrentTransmitRequest();
+            Toaster.ShowReceiveToast(sender, filename, filesizeMB);
         }
     }
 }

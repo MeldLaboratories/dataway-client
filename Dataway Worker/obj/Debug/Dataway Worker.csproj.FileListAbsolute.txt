@@ -20,7 +20,6 @@ D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\Dataway Worker.exe
 D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\Dataway Worker.pdb
 D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\Newtonsoft.Json.dll
 D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\Newtonsoft.Json.xml
 D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\PLib.pdb
 D:\Stash\Code\Dataway\dataway-client\Dataway Worker\obj\Debug\Dataway Worker.csproj.CopyComplete
 T:\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\Dataway Worker.exe.config
@@ -35,3 +34,8 @@ T:\Code\Dataway\dataway-client\Dataway Worker\obj\Debug\Dataway Worker.csproj.Co
 T:\Code\Dataway\dataway-client\Dataway Worker\obj\Debug\Dataway Worker.csproj.CopyComplete
 T:\Code\Dataway\dataway-client\Dataway Worker\obj\Debug\Dataway Worker.exe
 T:\Code\Dataway\dataway-client\Dataway Worker\obj\Debug\Dataway Worker.pdb
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\Microsoft.Toolkit.Uwp.Notifications.dll
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\Microsoft.Toolkit.Uwp.Notifications.pdb
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\NamedPipeWrapper.dll
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\NamedPipeWrapper.pdb
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\bin\Debug\System.ValueTuple.dll

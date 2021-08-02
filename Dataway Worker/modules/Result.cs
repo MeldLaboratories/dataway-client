@@ -2,7 +2,7 @@
 {
     //TODO: put result somewhere better like in client class
     //TODO: make more result types
-    public class Result
+    internal class Result
     {
         public int code;
         public string message;

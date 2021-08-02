@@ -134,6 +134,7 @@ namespace Dataway_Worker
 
         public Result AcceptCurrentTransmitRequest()
         {
+            Console.WriteLine("accepted");
             transmitRequestEventData.resultCode = (int)Result.CODE.SUCCESS;
             transmitRequestEvent.Set(); //TODO: what if event not waiting
             return new Result(Result.CODE.SUCCESS);

@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Toolkit.Uwp.Notifications;
 
-namespace Dataway_Worker.modules
+namespace Dataway_Worker
 {
-    class Toaster
+    internal class Toaster
     {
         /// <summary>
         /// Shows a File-Receive Toast-Notification
@@ -14,10 +14,10 @@ namespace Dataway_Worker.modules
         public static void ShowReceiveToast(string sender, string filename, int filesizeMB)
         {
             new ToastContentBuilder()
-            .AddArgument("", "rec-invalid")
+            .AddArgument("", "dw-rec-invalid")
             .AddText(sender + " wants to send you '" + filename + "' (" + filesizeMB + "MB)")
-            .AddButton("Accept", ToastActivationType.Background, "rec-success")
-            .AddButton("Decline", ToastActivationType.Background, "rec-fail")
+            .AddButton("Accept", ToastActivationType.Background, "dw-rec-success")
+            .AddButton("Decline", ToastActivationType.Background, "dw-rec-fail")
             .SetToastScenario(ToastScenario.Reminder)
             .AddAudio(new Uri(@"C:\Windows\Media\Dataway.wav"))
             .Show();
@@ -31,12 +31,12 @@ namespace Dataway_Worker.modules
         public static void ShowSendToast(string filename)
         {
             new ToastContentBuilder()
-            .AddArgument("", "send-invalid")
+            .AddArgument("", "dw-send-invalid")
             .AddText("Send the file: " + filename)
             .AddInputTextBox("receiver", "Receiver")
             .AddInputTextBox("message", "Message (optional)")
-            .AddButton("Send", ToastActivationType.Background, "send-success")
-            .AddButton("Cancel", ToastActivationType.Background, "send-fail")
+            .AddButton("Send", ToastActivationType.Background, "dw-send-success")
+            .AddButton("Cancel", ToastActivationType.Background, "dw-send-fail")
             .SetToastScenario(ToastScenario.Reminder)
             .Show();
         }
@@ -44,14 +44,15 @@ namespace Dataway_Worker.modules
         /// <summary>
         /// Handles all the Dataway Toast responses
         /// </summary>
-        public static void HandleToastResponses()
+        public static void HandleToastResponses(Client client)
         {
             ToastNotificationManagerCompat.OnActivated += toastArgs =>
             {
                 //Parse result
                 string rawResult = toastArgs.Argument.Replace("=", "");
-                string type = rawResult.Split('-')[0];
-                string result = rawResult.Split('-')[1];
+                if (!rawResult.StartsWith("dw")) return;
+                string type = rawResult.Split('-')[1];
+                string result = rawResult.Split('-')[2];
 
                 Console.WriteLine("Type:" + type);
                 Console.WriteLine("Answer:" + result);
@@ -59,6 +60,8 @@ namespace Dataway_Worker.modules
                 if (type == "rec")
                 {
                     if (result == "invalid") return; //TODO: do something
+                    else if (result == "success") client.AcceptCurrentTransmitRequest();
+                    else if (result == "fail") client.DeclineCurrentTransmitRequest();  
                 }
                 else if (type == "send")
                 {

@@ -52,11 +52,11 @@
     <Compile Include="Actions\Register.cs" />
     <Compile Include="Actions\Login.cs" />
     <Compile Include="Actions\Send.cs" />
-    <Compile Include="modules\Client.cs" />
+    <Compile Include="Modules\Client.cs" />
     <Compile Include="Formats\Communication\Local\LoginEventData.cs" />
-    <Compile Include="modules\DWHelper.cs" />
-    <Compile Include="modules\Toaster.cs" />
-    <Compile Include="modules\TSocket.cs" />
+    <Compile Include="Modules\DWHelper.cs" />
+    <Compile Include="Modules\Toaster.cs" />
+    <Compile Include="Modules\TSocket.cs" />
     <Compile Include="Formats\Base.cs" />
     <Compile Include="Formats\Communication\Local\ConnectEventData.cs" />
     <Compile Include="Formats\Communication\Local\TransmitRequestEventData.cs" />
@@ -80,10 +80,19 @@
     <Compile Include="Formats\Send\Command.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="modules\Result.cs" />
+    <Compile Include="Modules\Result.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
