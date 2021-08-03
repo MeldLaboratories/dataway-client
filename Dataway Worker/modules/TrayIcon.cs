@@ -25,8 +25,6 @@ namespace Dataway_Worker
 
                 // Exit Button
                 var exit = new MenuItem("Exit");
-                exit.Enabled = true;
-                exit.Visible = true;
                 exit.Click += (object sender, EventArgs args) => { Environment.Exit(0); };
 
                 // context
@@ -34,8 +32,7 @@ namespace Dataway_Worker
                 menu.MenuItems.AddRange(new MenuItem[] { exit });
                 Icon.ContextMenu = menu;
 
-                // TODO: find a better solution
-                Process.GetCurrentProcess().WaitForExit();
+                Application.Run();
             });
 
             notifyIcon.SetApartmentState(ApartmentState.STA);
