@@ -23,7 +23,6 @@ namespace Dataway_Worker
             .Show();
         }
 
-
         /// <summary>
         /// Shows a File-Send Toast-Notification
         /// </summary>
@@ -61,7 +60,7 @@ namespace Dataway_Worker
                 {
                     if (result == "invalid") return; //TODO: do something
                     else if (result == "success") client.AcceptCurrentTransmitRequest();
-                    else if (result == "fail") client.DeclineCurrentTransmitRequest();  
+                    else if (result == "fail") client.DeclineCurrentTransmitRequest();
                 }
                 else if (type == "send")
                 {

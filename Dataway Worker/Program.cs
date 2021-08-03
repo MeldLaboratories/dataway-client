@@ -9,9 +9,7 @@ namespace Dataway_Worker
 {
     internal class Program
     {
-
         public static Client client = new Client();
-        
 
         private static void Main(string[] args)
         {
@@ -192,7 +190,6 @@ namespace Dataway_Worker
             result = args[i + 1];
             return result;
         }
-
 
         private static void HandleTransmitRequest(object invoker, string sender, string message, string filename, int filesizeMB)
         {

@@ -28,7 +28,8 @@ namespace Dataway_Client.Actions
 
                 // send command as json
                 client.PushMessage(JsonConvert.SerializeObject(command));
-            } else
+            }
+            else
             {
                 var command = new Formats.Send.Context();
                 command.File = opts.File;
@@ -70,9 +71,6 @@ namespace Dataway_Client.Actions
                     }
                 }
             }
-
-
         }
-
     }
 }

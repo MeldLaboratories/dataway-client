@@ -3,8 +3,8 @@ using System.Threading;
 using System.Windows.Forms;
 using System.IO;
 
-namespace Dataway_Worker 
-{ 
+namespace Dataway_Worker
+{
     internal class DWHelper
     {
         /// <summary>
@@ -14,8 +14,8 @@ namespace Dataway_Worker
         /// <param name="fileName"></param>
         public static void SaveBytesViaDialog(byte[] bytes, string fileName)
         {
-            Thread thread = new Thread(() => {
-
+            Thread thread = new Thread(() =>
+            {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
 
                 string filetype = fileName.Split('.')[fileName.Split('.').Length - 1];
@@ -35,4 +35,3 @@ namespace Dataway_Worker
         }
     }
 }
-

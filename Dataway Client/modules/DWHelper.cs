@@ -33,7 +33,6 @@ namespace Dataway_Client
             baseCMD.CreateSubKey("command").SetValue("", executablePath + " context %1");
         }
 
-
         /// <summary>
         /// Deletes all Dataway related registry keys.
         /// </summary>
@@ -48,8 +47,6 @@ namespace Dataway_Client
 
             shell.DeleteSubKeyTree(folderName);
         }
-
-
 
         /// <summary>
         /// Adds a quick send entry to the context menu
@@ -71,8 +68,6 @@ namespace Dataway_Client
             cmdKey.CreateSubKey("command", true).SetValue("", executablePath + " send -f %1 -u " + user);
         }
 
-
-
         /// <summary>
         /// Adds a quick send entry from the context menu
         /// </summary>
@@ -83,7 +78,7 @@ namespace Dataway_Client
         {
             string folderName = Properties.Settings.Default.RegistryKeyName;
 
-            try 
+            try
             {
                 RegistryKey datawayShell = Registry.ClassesRoot
                 .OpenSubKey("*", true)
@@ -93,7 +88,6 @@ namespace Dataway_Client
 
                 datawayShell.DeleteSubKeyTree("Send to " + user);
             }
-
             catch (SecurityException)
             {
                 Console.WriteLine("To add or remove a quick send entry, elevated privileges are required.");

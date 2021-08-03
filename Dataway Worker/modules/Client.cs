@@ -27,7 +27,6 @@ namespace Dataway_Worker
         private Dataway_Worker.Formats.Communication.Local.SendFileEventData sendFileEventData = new Dataway_Worker.Formats.Communication.Local.SendFileEventData();
         private Dataway_Worker.Formats.Communication.Local.TransmitRequestEventData transmitRequestEventData = new Dataway_Worker.Formats.Communication.Local.TransmitRequestEventData();
 
-
         //
         // Events
         //
@@ -37,7 +36,6 @@ namespace Dataway_Worker
 
         public event TransmitRequestRecievedEvent OnTransmitRequest;
         public event ErrorEvent OnError;
-
 
         //
         // Variables
@@ -52,8 +50,6 @@ namespace Dataway_Worker
             this.nextFileRecieveData.filetype = "json";
         }
 
-
-
         #region Public Methods
 
         //
@@ -65,19 +61,19 @@ namespace Dataway_Worker
             socket = new TSocket(addr, port);
             TSocket.CONN_RESULT res = socket.Connect();
 
-            if(res == TSocket.CONN_RESULT.CONNECTION_SUCCESSFUL)
+            if (res == TSocket.CONN_RESULT.CONNECTION_SUCCESSFUL)
             {
                 socket.OnDataRecieved += this.DataParser;
                 return new Result(Result.CODE.SUCCESS);
             }
-            else if(res == TSocket.CONN_RESULT.CONNECTION_REFUSED)
+            else if (res == TSocket.CONN_RESULT.CONNECTION_REFUSED)
             {
                 return new Result(Result.CODE.CONNECTION_REFUSED);
             }
             else
             {
                 throw new Exception("Unknown exception during socket connection.");
-            } 
+            }
         }
 
         public Result Login(string username, string password)
@@ -131,7 +127,6 @@ namespace Dataway_Worker
             return new Result(Result.CODE.SUCCESS);
         }
 
-
         public Result AcceptCurrentTransmitRequest()
         {
             Console.WriteLine("accepted");
@@ -139,7 +134,6 @@ namespace Dataway_Worker
             transmitRequestEvent.Set(); //TODO: what if event not waiting
             return new Result(Result.CODE.SUCCESS);
         }
-
 
         public Result DeclineCurrentTransmitRequest()
         {
@@ -208,12 +202,9 @@ namespace Dataway_Worker
             this.socket.SendJson(json);
         }
 
-
         public void ErrorEventHandler(object sender, Exception e)
         {
-
         }
-
 
         private void DataParser(object sender, byte[] buffer, int bytes)
         {

@@ -14,30 +14,25 @@ namespace Dataway_Worker
 
         private CancellationTokenSource cts = new CancellationTokenSource();
 
-
         public delegate void DataRecievedEvent(object sender, byte[] buffer, int bytes);
 
         public event DataRecievedEvent OnDataRecieved;
 
-
         public IPEndPoint EndPoint;
         public bool Connected = false;
 
-
-        public enum CONN_RESULT 
+        public enum CONN_RESULT
         {
             CONNECTION_SUCCESSFUL = 0,
             CONNECTION_REFUSED = 1,
             CONNECTION_CLOSED = 2 //TODO: make other result types
         }
 
-
         public TSocket(IPAddress addr, int port)
         {
             EndPoint = new IPEndPoint(addr, port);
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
-
 
         public CONN_RESULT Connect()
         {
@@ -62,7 +57,6 @@ namespace Dataway_Worker
                     }
                 }
             }).Wait();
-
 
             //CONNECTION SUCCESSFUL
             if (result == CONN_RESULT.CONNECTION_SUCCESSFUL)
