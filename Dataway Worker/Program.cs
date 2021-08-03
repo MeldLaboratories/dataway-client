@@ -196,6 +196,13 @@ namespace Dataway_Worker
         {
             Console.WriteLine("Incoming transmit request from {0} with file {1}({2}MB) with message {3}", sender, filename, filesizeMB, message);
 
+            if (icon.Muted)
+            {
+                Console.WriteLine("Declined incomming transmit request from {0} ({1}).", sender, filename);
+                client.DeclineCurrentTransmitRequest();
+                return;
+            }
+
             Toaster.ShowReceiveToast(sender, filename, filesizeMB);
         }
     }

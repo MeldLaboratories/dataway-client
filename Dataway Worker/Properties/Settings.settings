@@ -5,5 +5,8 @@
     <Setting Name="RegistryKeyName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Dataway</Value>
     </Setting>
+    <Setting Name="MuteState" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
