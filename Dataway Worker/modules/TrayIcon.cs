@@ -1,12 +1,20 @@
 ﻿using System;
-using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Diagnostics;
 
 namespace Dataway_Worker
 {
-    internal class TrayIcon
+    class TrayIcon
     {
-        public bool Muted = false;
+        public bool Muted { 
+            get { return Properties.Settings.Default.MuteState; } 
+            set { Properties.Settings.Default.MuteState = value; } 
+        }
 
         public TrayIcon()
         {
@@ -22,11 +30,19 @@ namespace Dataway_Worker
 
                 // Exit Button
                 var exit = new MenuItem("Exit");
-                exit.Click += this.MenuExitHandler;
+                exit.Click += (object sender, EventArgs args) => { Environment.Exit(0); };
 
-                // Add entries to menu
+                // Mute Switch
+                var mute = new MenuItem("Mute");
+                mute.Click += (object sender, EventArgs args) =>
+                {
+                    this.Muted = !this.Muted;
+                    mute.Checked = this.Muted;
+                };
+
+                // context
                 var menu = new ContextMenu();
-                menu.MenuItems.AddRange(new MenuItem[] { exit });
+                menu.MenuItems.AddRange(new MenuItem[] { mute, exit });
                 Icon.ContextMenu = menu;
 
                 Application.Run();
@@ -35,11 +51,6 @@ namespace Dataway_Worker
             notifyIcon.SetApartmentState(ApartmentState.STA);
             notifyIcon.IsBackground = false;
             notifyIcon.Start();
-        }
-
-        private void MenuExitHandler(object sender, EventArgs args)
-        {
-            Environment.Exit(0);
         }
     }
 }
