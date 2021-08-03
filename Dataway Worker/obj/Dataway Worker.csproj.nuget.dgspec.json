@@ -1,21 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Stash\\Code\\Dataway\\dataway-client\\Dataway Worker\\Dataway Worker.csproj": {}
+    "C:\\Users\\malte\\Desktop\\dataway-client\\Dataway Worker\\Dataway Worker.csproj": {}
   },
   "projects": {
-    "D:\\Stash\\Code\\Dataway\\dataway-client\\Dataway Worker\\Dataway Worker.csproj": {
+    "C:\\Users\\malte\\Desktop\\dataway-client\\Dataway Worker\\Dataway Worker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Stash\\Code\\Dataway\\dataway-client\\Dataway Worker\\Dataway Worker.csproj",
+        "projectUniqueName": "C:\\Users\\malte\\Desktop\\dataway-client\\Dataway Worker\\Dataway Worker.csproj",
         "projectName": "Dataway Worker",
-        "projectPath": "D:\\Stash\\Code\\Dataway\\dataway-client\\Dataway Worker\\Dataway Worker.csproj",
-        "packagesPath": "C:\\Users\\Felix\\.nuget\\packages\\",
-        "outputPath": "D:\\Stash\\Code\\Dataway\\dataway-client\\Dataway Worker\\obj\\",
+        "projectPath": "C:\\Users\\malte\\Desktop\\dataway-client\\Dataway Worker\\Dataway Worker.csproj",
+        "packagesPath": "C:\\Users\\malte\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\malte\\Desktop\\dataway-client\\Dataway Worker\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "configFilePaths": [
-          "C:\\Users\\Felix\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\malte\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

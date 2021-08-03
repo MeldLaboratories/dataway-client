@@ -9,7 +9,8 @@ namespace Dataway_Worker
 {
     internal class Program
     {
-        public static Client client = new Client();
+        private static readonly Client client = new Client();
+        private static readonly TrayIcon icon = new TrayIcon();
 
         private static void Main(string[] args)
         {
