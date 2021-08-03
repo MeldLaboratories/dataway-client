@@ -53,6 +53,7 @@ namespace Dataway_Worker
                 string type = rawResult.Split('-')[1];
                 string result = rawResult.Split('-')[2];
 
+                //Debug
                 Console.WriteLine("Type:" + type);
                 Console.WriteLine("Answer:" + result);
 

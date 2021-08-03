@@ -45,8 +45,7 @@ namespace Dataway_Worker
                 menu.MenuItems.AddRange(new MenuItem[] { mute, exit });
                 Icon.ContextMenu = menu;
 
-                // TODO: find a better solution
-                Process.GetCurrentProcess().WaitForExit();
+                Application.Run();
             });
 
             notifyIcon.SetApartmentState(ApartmentState.STA);

@@ -57,3 +57,5 @@ C:\Users\malte\Desktop\dataway-client\Dataway Worker\bin\Debug\System.ValueTuple
 C:\Users\malte\Desktop\dataway-client\Dataway Worker\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\malte\Desktop\dataway-client\Dataway Worker\bin\Debug\PLib.pdb
 C:\Users\malte\Desktop\dataway-client\Dataway Worker\obj\Debug\Dataway Worker.csproj.CopyComplete
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\obj\Debug\Dataway_Worker.Properties.Resources.resources
+D:\Stash\Code\Dataway\dataway-client\Dataway Worker\obj\Debug\Dataway Worker.csproj.GenerateResource.cache

@@ -211,9 +211,9 @@ namespace Dataway_Worker
             //Incoming File
             if (this.nextFileRecieveData.filetype != "json")
             {
-                Console.WriteLine("Writing File {0} to {1}", this.nextFileRecieveData.filename, Environment.CurrentDirectory);
+                //Open Save-File-Dialog
+                DWHelper.SaveBytesViaDialog(buffer, this.nextFileRecieveData.filename);
 
-                File.WriteAllBytes(Environment.CurrentDirectory + "\\" + this.nextFileRecieveData.filename, buffer);
                 this.nextFileRecieveData.filetype = "json";
                 this.nextFileRecieveData.filename = "_";
                 return;
