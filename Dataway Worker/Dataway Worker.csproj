@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\Error.cs" />
     <Compile Include="Actions\Register.cs" />
     <Compile Include="Actions\Login.cs" />
     <Compile Include="Actions\Send.cs" />

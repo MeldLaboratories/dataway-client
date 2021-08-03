@@ -1,17 +1,23 @@
-﻿using PLib.SimpleNamedPipeWrapper;
-using System;
+﻿using Newtonsoft.Json;
+using PLib.SimpleNamedPipeWrapper;
 
 namespace Dataway_Worker.Actions
 {
     internal class Login
     {
-        public static void PerformLogin(SimpleNamedPipeServer _, Client client, Formats.Login.Command command)
+        public static void PerformLogin(SimpleNamedPipeServer server, Client client, Formats.Login.Command command)
         {
-            // send login task
             var res = client.Login(command.Username, command.Password);
 
-            if (res.code != 0) throw new Exception(res.message);
-            return;
+            if (res.code == (int)Result.CODE.SUCCESS)
+            {
+                //TODO: toast or console
+                server.PushMessage(JsonConvert.SerializeObject(Error.CreateError(res))); //TODO: toast or console
+                DWHelper.ShowErrorBox(res.message);
+            }
+
+            // return success
+            server.PushMessage(JsonConvert.SerializeObject(new Formats.Generic.Complete())); //TODO: toast or console
         }
     }
 }

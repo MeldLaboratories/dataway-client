@@ -1,5 +1,5 @@
-﻿using PLib.SimpleNamedPipeWrapper;
-using System;
+﻿using Newtonsoft.Json;
+using PLib.SimpleNamedPipeWrapper;
 
 namespace Dataway_Worker.Actions
 {
@@ -7,11 +7,17 @@ namespace Dataway_Worker.Actions
     {
         public static void PerformRegister(SimpleNamedPipeServer server, Client client, Formats.Register.Command command)
         {
-            // send register task
-            var res = client.Register(command.Username, command.Password);
+            Result res = client.Register(command.Username, command.Password);
 
-            if (res.code != 0) throw new Exception(res.message);
-            return;
+            if (res.code == (int)Result.CODE.SUCCESS)
+            {
+                //TODO: toast or console
+                server.PushMessage(JsonConvert.SerializeObject(Error.CreateError(res))); //TODO: toast or console
+                DWHelper.ShowErrorBox(res.message);
+            }
+
+            // return success
+            server.PushMessage(JsonConvert.SerializeObject(new Formats.Generic.Complete()));
         }
     }
 }

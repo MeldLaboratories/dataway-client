@@ -1,13 +1,8 @@
 ﻿using PLib.SimpleNamedPipeWrapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dataway_Client
 {
-    class PipeSpawner
+    internal class PipeSpawner
     {
         /// <summary>
         /// Creates a new SimpleNamedPipeClient instance and starts it.

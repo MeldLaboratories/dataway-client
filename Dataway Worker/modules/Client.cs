@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -32,9 +31,11 @@ namespace Dataway_Worker
         //
 
         public delegate void TransmitRequestRecievedEvent(object invoker, string sender, string message, string filename, int filesizeMB);
+
         public delegate void ErrorEvent(object invoker, Exception e);
 
         public event TransmitRequestRecievedEvent OnTransmitRequest;
+
         public event ErrorEvent OnError;
 
         //
@@ -116,10 +117,14 @@ namespace Dataway_Worker
             json.filename = filename;
             json.reciever = reciever;
 
-            this.socket.SendJson(json);
+            var result = this.socket.SendJson(json);
+            if (result == TSocket.SEND_RESULT.SEND_SOCKETNOTCONNECTED)
+            {
+                return new Result(Result.CODE.SOCKET_NOT_CONNECTED);
+            }
 
             //Wait for response
-            sendFileEvent.WaitOne();
+            sendFileEvent.WaitOne(); //TODO make this sync
 
             //ACt accordingly to response
             this.socket.SendFile(path);

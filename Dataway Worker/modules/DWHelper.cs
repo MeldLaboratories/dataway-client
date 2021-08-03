@@ -1,7 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using System.IO;
 
 namespace Dataway_Worker
 {
@@ -32,6 +31,12 @@ namespace Dataway_Worker
 
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
+        }
+
+        public static void ShowErrorBox(string message)
+        {
+            var result = MessageBox.Show(message, "Unexpected Error!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.Retry) { } //TODO restart code
         }
     }
 }

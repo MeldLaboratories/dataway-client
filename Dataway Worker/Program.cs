@@ -26,8 +26,26 @@ namespace Dataway_Worker
 
             // start dataway client
             IPAddress ip = Dns.GetHostAddresses("kevin-ortmann.com")[0];
-            var res = client.Connect(ip, 2000);
-            Console.WriteLine("Connection to server: " + res.message);
+            var res = client.Connect(ip, 2000); //TODO: IF REFUSED DO SOMETHING
+            if (res.code != 0) Toaster.ShowErrorToast("Error trying to connect to the Dataway server", res.message);
+
+            // attempt auto login via config
+            var properties = Properties.Settings.Default;
+            if (properties.Password != "" || properties.Username != "")// CHANGE TO && IN RELEASE DEBUG
+            {
+                Console.WriteLine("Attempting auto login with credentials: " + properties.Username + "+" + properties.Password); //DEBUG
+                var command = new Formats.Login.Command()
+                {
+                    Username = properties.Username,
+                    Password = properties.Password
+                };
+
+                Actions.Login.PerformLogin(server, client, command);
+            }
+
+            Properties.Settings.Default.Username = "c";
+            Properties.Settings.Default.Password = "";
+            Properties.Settings.Default.Save();
 
             // transmit request listener
             client.OnTransmitRequest += HandleTransmitRequest;
@@ -40,7 +58,7 @@ namespace Dataway_Worker
 
             server.ClientConnected += delegate (SimpleNamedPipeServer _)
             {
-                Console.WriteLine("User connected");
+                Console.WriteLine("Pipe connected");
 
                 // handle data
                 while (server.IsConnected)
@@ -55,114 +73,25 @@ namespace Dataway_Worker
                     // handle send objects
                     if (rawData.Action.ToUpper() == "SEND")
                     {
-                        switch (rawData.Type.ToUpper())
-                        {
-                            case "REQUEST":
-                                try
-                                {
-                                    Actions.Send.Request(server, client, JsonConvert.DeserializeObject<Formats.Send.Command>(msg));
-                                }
-                                catch (Exception err)
-                                {
-                                    server.PushMessage(JsonConvert.SerializeObject(CreateError(err)));
-                                    continue;
-                                }
-
-                                // return success
-                                server.PushMessage(JsonConvert.SerializeObject(new Formats.Generic.Complete()));
-                                break;
-
-                            default:
-                                break;
-                        }
+                        Actions.Send.Request(server, client, JsonConvert.DeserializeObject<Formats.Send.Command>(msg)); //TODO: context menu vs cmd command | error handling via gui or cmd promt msg????
                     }
 
                     // handle login objects
                     if (rawData.Action.ToUpper() == "LOGIN")
                     {
-                        switch (rawData.Type.ToUpper())
-                        {
-                            case "REQUEST":
-                                try
-                                {
-                                    Actions.Login.PerformLogin(server, client, JsonConvert.DeserializeObject<Formats.Login.Command>(msg));
-                                }
-                                catch (Exception err)
-                                {
-                                    server.PushMessage(JsonConvert.SerializeObject(CreateError(err)));
-                                    continue;
-                                }
-
-                                // return success
-                                server.PushMessage(JsonConvert.SerializeObject(new Formats.Generic.Complete()));
-                                break;
-
-                            default:
-                                break;
-                        }
+                        Actions.Login.PerformLogin(server, client, JsonConvert.DeserializeObject<Formats.Login.Command>(msg));
                     }
 
-                    // handle login objects
+                    // handle register objects
                     if (rawData.Action.ToUpper() == "REGISTER")
                     {
-                        switch (rawData.Type.ToUpper())
-                        {
-                            case "REQUEST":
-                                try
-                                {
-                                    Actions.Register.PerformRegister(server, client, JsonConvert.DeserializeObject<Formats.Register.Command>(msg));
-                                }
-                                catch (Exception err)
-                                {
-                                    server.PushMessage(JsonConvert.SerializeObject(CreateError(err)));
-                                    continue;
-                                }
-
-                                // return success
-                                server.PushMessage(JsonConvert.SerializeObject(new Formats.Generic.Complete()));
-                                break;
-
-                            default:
-                                break;
-                        }
-                    }
-
-                    // handle generic data
-                    if (rawData.Action.ToUpper() == "GENERIC")
-                    {
-                        switch (rawData.Type.ToUpper())
-                        {
-                            case "MESSAGE":
-                                break;
-
-                            case "ERROR":
-                                break;
-
-                            case "COMPLETE":
-                                break;
-
-                            default:
-                                break;
-                        }
+                        Actions.Register.PerformRegister(server, client, JsonConvert.DeserializeObject<Formats.Register.Command>(msg));
                     }
                 }
             };
 
             // Wait for current process to end. Kappa
             Process.GetCurrentProcess().WaitForExit();
-        }
-
-        /// <summary>
-        /// Creates a new error instance
-        /// </summary>
-        /// <param name="err">Exception</param>
-        /// <returns></returns>
-        private static Formats.Generic.Error CreateError(Exception err)
-        {
-            var response = new Formats.Generic.Error();
-            response.Code = err.GetHashCode();
-            response.Text = err.Message;
-            return response;
         }
 
         /// <summary>
@@ -192,6 +121,14 @@ namespace Dataway_Worker
             return result;
         }
 
+        /// <summary>
+        /// Handles incoming transmit requests
+        /// </summary>
+        /// <param name="invoker"></param>
+        /// <param name="sender"></param>
+        /// <param name="message"></param>
+        /// <param name="filename"></param>
+        /// <param name="filesizeMB"></param>
         private static void HandleTransmitRequest(object invoker, string sender, string message, string filename, int filesizeMB)
         {
             Console.WriteLine("Incoming transmit request from {0} with file {1}({2}MB) with message {3}", sender, filename, filesizeMB, message);

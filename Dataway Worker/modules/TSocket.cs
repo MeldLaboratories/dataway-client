@@ -28,6 +28,12 @@ namespace Dataway_Worker
             CONNECTION_CLOSED = 2 //TODO: make other result types
         }
 
+        public enum SEND_RESULT
+        {
+            SEND_SUCCESSFUL = 0,
+            SEND_SOCKETNOTCONNECTED = 1
+        }
+
         public TSocket(IPAddress addr, int port)
         {
             EndPoint = new IPEndPoint(addr, port);
@@ -68,15 +74,49 @@ namespace Dataway_Worker
             return result;
         }
 
-        public void SendFile(string path)
+        public SEND_RESULT SendFile(string path)
         {
-            socket.SendFile(path);//TODO: error handling for each send socket close
+            try
+            {
+                socket.SendFile(path);
+            }
+            catch (SocketException e)
+            {
+                if (e.SocketErrorCode == SocketError.NotConnected)
+                {
+                    return SEND_RESULT.SEND_SOCKETNOTCONNECTED;
+                }
+                else DWHelper.ShowErrorBox(e.Message);
+            }
+            catch (Exception e)
+            {
+                DWHelper.ShowErrorBox(e.Message);
+            }
+
+            return SEND_RESULT.SEND_SUCCESSFUL;
         }
 
-        public void SendJson(object json)
+        public SEND_RESULT SendJson(object json)
         {
-            Byte[] bytes = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(json));//TODO: error handling for each send socket close
-            socket.Send(bytes, bytes.Length, 0);
+            Byte[] bytes = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(json));
+            try
+            {
+                socket.Send(bytes, bytes.Length, 0);
+            }
+            catch (SocketException e)
+            {
+                if (e.SocketErrorCode == SocketError.NotConnected)
+                {
+                    return SEND_RESULT.SEND_SOCKETNOTCONNECTED;
+                }
+                else DWHelper.ShowErrorBox(e.Message);
+            }
+            catch (Exception e)
+            {
+                DWHelper.ShowErrorBox(e.Message);
+            }
+
+            return SEND_RESULT.SEND_SUCCESSFUL;
         }
 
 #pragma warning disable CS1998

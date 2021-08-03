@@ -11,6 +11,7 @@
         //POSITVE == SERVER/CLIENT ERROR or RESPONSE
         public enum CODE
         {
+            SOCKET_NOT_CONNECTED = -2,
             CONNECTION_REFUSED = -1,
             SUCCESS = 0,
             BAD_LOGIN = 1,

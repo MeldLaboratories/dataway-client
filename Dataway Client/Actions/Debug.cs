@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using PLib.SimpleNamedPipeWrapper;
-using System;
+﻿using System;
 
 namespace Dataway_Client.Actions
 {

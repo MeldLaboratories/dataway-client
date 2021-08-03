@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Toolkit.Uwp.Notifications;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
+using System;
 
 namespace Dataway_Worker
 {
@@ -37,6 +37,16 @@ namespace Dataway_Worker
             .AddButton("Send", ToastActivationType.Background, "dw-send-success")
             .AddButton("Cancel", ToastActivationType.Background, "dw-send-fail")
             .SetToastScenario(ToastScenario.Reminder)
+            .Show();
+        }
+
+        public static void ShowErrorToast(string title, string message)
+        {
+            new ToastContentBuilder()
+            .AddAppLogoOverride(new Uri(Environment.CurrentDirectory + @"\error.png")) //TODO: error image
+            .AddText(title)
+            .AddText(message)
+            .SetToastScenario(ToastScenario.Default)
             .Show();
         }
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Dataway_Client.Actions
+﻿namespace Dataway_Client.Actions
 {
     internal class DelQuick
     {

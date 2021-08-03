@@ -2,7 +2,6 @@
 {
     internal class Context
     {
-        public string Type = "Request";
         public string Action = "Context";
 
         public string File = "";

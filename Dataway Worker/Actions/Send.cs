@@ -1,5 +1,5 @@
-﻿using PLib.SimpleNamedPipeWrapper;
-using System;
+﻿using Newtonsoft.Json;
+using PLib.SimpleNamedPipeWrapper;
 
 namespace Dataway_Worker.Actions
 {
@@ -10,12 +10,17 @@ namespace Dataway_Worker.Actions
             var parts = command.File.Split('\\');
             var filename = parts[parts.Length - 1];
 
-            // send send task
-            var res = client.SendFile(command.File, filename, command.User);
-            // TODO: add message
+            Result res = client.SendFile(command.File, filename, command.User);
 
-            if (res.code != 0) throw new Exception(res.message);
-            return;
+            if (res.code == (int)Result.CODE.SUCCESS)
+            {
+                //TODO: toast or console
+                DWHelper.ShowErrorBox(res.message);
+                server.PushMessage(JsonConvert.SerializeObject(Error.CreateError(res)));
+            }
+
+            // return success
+            server.PushMessage(JsonConvert.SerializeObject(new Formats.Generic.Complete()));
         }
     }
 }

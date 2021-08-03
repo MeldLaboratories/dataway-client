@@ -2,7 +2,6 @@
 {
     internal class Command
     {
-        public string Type = "Request";
         public string Action = "Login";
 
         public string Username = "";

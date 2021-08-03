@@ -1,6 +1,4 @@
 ﻿using CommandLine;
-using PLib.SimpleNamedPipeWrapper;
-using System;
 
 namespace Dataway_Client
 {

@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace Dataway_Worker
 {
-    class TrayIcon
+    internal class TrayIcon
     {
+        public bool Muted = false;
+
         public TrayIcon()
         {
             Thread notifyIcon = new Thread(delegate ()
@@ -25,9 +22,9 @@ namespace Dataway_Worker
 
                 // Exit Button
                 var exit = new MenuItem("Exit");
-                exit.Click += (object sender, EventArgs args) => { Environment.Exit(0); };
+                exit.Click += this.MenuExitHandler;
 
-                // context
+                // Add entries to menu
                 var menu = new ContextMenu();
                 menu.MenuItems.AddRange(new MenuItem[] { exit });
                 Icon.ContextMenu = menu;
@@ -38,6 +35,11 @@ namespace Dataway_Worker
             notifyIcon.SetApartmentState(ApartmentState.STA);
             notifyIcon.IsBackground = false;
             notifyIcon.Start();
+        }
+
+        private void MenuExitHandler(object sender, EventArgs args)
+        {
+            Environment.Exit(0);
         }
     }
 }
