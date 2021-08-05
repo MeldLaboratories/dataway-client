@@ -106,9 +106,9 @@ namespace Dataway_Worker
         /// <param name="message"></param>
         /// <param name="filename"></param>
         /// <param name="filesizeMB"></param>
-        private static void HandleTransmitRequest(object invoker, string sender, string message, string filename, int filesizeMB)
+        private static void HandleTransmitRequest(object invoker, string sender, string message, string filename, int filesize)
         {
-            Console.WriteLine("Incoming transmit request from {0} with file {1}({2}MB) with message {3}", sender, filename, filesizeMB, message);
+            Console.WriteLine("Incoming transmit request from {0} with file {1}({2}B) with message {3}", sender, filename, filesize, message);
 
             if (icon.Muted)
             {
@@ -117,7 +117,7 @@ namespace Dataway_Worker
                 return;
             }
 
-            Toaster.ShowReceiveToast(sender, filename, filesizeMB);
+            Toaster.ShowReceiveToast(sender, filename, filesize);
         }
     }
 }

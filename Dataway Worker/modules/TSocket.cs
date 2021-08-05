@@ -74,6 +74,12 @@ namespace Dataway_Worker
             return result;
         }
 
+
+        public void Disconnect()
+        {
+            this.socket.Disconnect(true);
+        }
+
         public SEND_RESULT SendFile(string path)
         {
             try
@@ -130,9 +136,7 @@ namespace Dataway_Worker
                 while (cts.IsCancellationRequested == false)
                 {
                     Byte[] buffer = new Byte[256]; //TODO: larger files
-
                     bytes = socket.Receive(buffer, buffer.Length, 0);
-                    string data = Encoding.ASCII.GetString(buffer, 0, bytes);
 
                     OnDataRecieved?.Invoke(this, buffer, bytes);
                 }

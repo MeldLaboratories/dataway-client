@@ -7,5 +7,6 @@
         public string File = "";
         public string User = "";
         public string Message = "";
+        public int Filesize = 0;
     }
 }

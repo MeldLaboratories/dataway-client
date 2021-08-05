@@ -32,6 +32,14 @@ namespace Dataway_Worker
                 var exit = new MenuItem("Exit");
                 exit.Click += (object sender, EventArgs args) => { Environment.Exit(0); };
 
+                // Login Button
+                var login = new MenuItem("Login");
+                login.Click += (object sender, EventArgs args) => { Toaster.ShowLoginRegisterToast(); };
+
+                // Logout Button
+                var logout = new MenuItem("Logout");
+                logout.Click += (object sender, EventArgs args) => { Environment.Exit(0); };
+
                 // Mute Switch
                 var mute = new MenuItem("Mute");
                 mute.Click += (object sender, EventArgs args) =>
@@ -42,7 +50,7 @@ namespace Dataway_Worker
 
                 // context
                 var menu = new ContextMenu();
-                menu.MenuItems.AddRange(new MenuItem[] { mute, exit });
+                menu.MenuItems.AddRange(new MenuItem[] { mute, exit , login, logout });
                 Icon.ContextMenu = menu;
 
                 Application.Run();

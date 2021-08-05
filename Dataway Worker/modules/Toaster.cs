@@ -13,11 +13,11 @@ namespace Dataway_Worker
         /// <param name="sender"></param>
         /// <param name="filename"></param>
         /// <param name="filesizeMB"></param>
-        public static void ShowReceiveToast(string sender, string filename, int filesizeMB)
+        public static void ShowReceiveToast(string sender, string filename, int filesize)
         {
             new ToastContentBuilder()
             .AddArgument("", "dw-rec-invalid")
-            .AddText(sender + " wants to send you '" + filename + "' (" + filesizeMB + "MB)")
+            .AddText(sender + " wants to send you '" + filename + "' (" + filesize + "B)")
             .AddButton("Accept", ToastActivationType.Background, "dw-rec-success")
             .AddButton("Decline", ToastActivationType.Background, "dw-rec-fail")
             .SetToastScenario(ToastScenario.Reminder)
@@ -82,9 +82,6 @@ namespace Dataway_Worker
                 string type = rawResult.Split('-')[1];
                 string result = rawResult.Split('-')[2];
 
-                //Debug
-                Console.WriteLine("Type:" + type);
-                Console.WriteLine("Answer:" + result);
 
                 if (type == "rec")
                 {
@@ -98,8 +95,6 @@ namespace Dataway_Worker
 
                     string receiver = (string)toastArgs.UserInput["receiver"];
                     string message = (string)toastArgs.UserInput["message"];
-                    Console.WriteLine("Receiver: " + receiver);
-                    Console.WriteLine("Message: " + message);
                 }
                 else if (type == "auth")
                 {

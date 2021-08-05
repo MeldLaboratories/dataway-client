@@ -31,7 +31,7 @@ namespace Dataway_Worker
         // Events
         //
 
-        public delegate void TransmitRequestRecievedEvent(object invoker, string sender, string message, string filename, int filesizeMB);
+        public delegate void TransmitRequestRecievedEvent(object invoker, string sender, string message, string filename, int filesize);
 
         public delegate void ErrorEvent(object invoker, Exception e);
 
@@ -111,12 +111,13 @@ namespace Dataway_Worker
             return new Result(Result.CODE.SUCCESS);
         }
 
-        public Result SendFile(string path, string filename, string reciever)
+        public Result SendFile(string path, string filename, string reciever, int filesize)
         {
             //Send request
             var json = new Dataway_Worker.Formats.Communication.Send.TransmitRequest();
             json.filename = filename;
             json.reciever = reciever;
+            json.filesize = filesize;
 
             var result = this.socket.SendJson(json);
             if (result == TSocket.SEND_RESULT.SEND_SOCKETNOTCONNECTED)
@@ -203,7 +204,7 @@ namespace Dataway_Worker
             }
 
             //NOTIFY USER AND GET RESPONSE
-            OnTransmitRequest?.Invoke(this, transmitRequest.sender, transmitRequest.message, transmitRequest.filename, transmitRequest.filesizeMB);
+            OnTransmitRequest?.Invoke(this, transmitRequest.sender, transmitRequest.message, transmitRequest.filename, transmitRequest.filesize);
             transmitRequestEvent.WaitOne();
 
             if (transmitRequestEventData.resultCode == (int)Result.CODE.SUCCESS)
@@ -226,6 +227,14 @@ namespace Dataway_Worker
 
         private void DataParser(object sender, byte[] buffer, int bytes)
         {
+            if(bytes == 0)
+            {
+                Toaster.ShowErrorToast("Dataway server closed unexpectedly", "Try logging in again later"); //TODO: handle
+                Console.WriteLine("error");
+                this.socket.Disconnect();
+                return;
+            }
+
             //Incoming File
             if (this.nextFileRecieveData.filetype != "json")
             {
@@ -245,7 +254,7 @@ namespace Dataway_Worker
 
                 Console.WriteLine(data);
 
-                if (baseType.type == "result")
+                if (baseType.type == "result") //TODO: if server goes down
                 {
                     var result = JsonConvert.DeserializeObject<Dataway_Worker.Formats.Communication.Recieve.Result>(data);
                     var resultCode = result.result;

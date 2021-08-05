@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PLib.SimpleNamedPipeWrapper;
+using System.IO;
 
 namespace Dataway_Worker.Actions
 {
@@ -10,16 +11,26 @@ namespace Dataway_Worker.Actions
             var parts = command.File.Split('\\');
             var filename = parts[parts.Length - 1];
 
-            Result res = client.SendFile(command.File, filename, command.User);
+            FileInfo fileInfo = new FileInfo(command.File);
+            int filesize = (int)fileInfo.Length;
+
+            Result res = client.SendFile(command.File, filename, command.User, filesize);
 
             if (res.code != (int)Result.CODE.SUCCESS)
             {
+                if(res.code == (int)Result.CODE.DECLINED_TRANSMIT_REQUEST){
+                    Toaster.ShowErrorToast("Transmit request declined", "");
+                    server.PushMessage(JsonConvert.SerializeObject(Error.CreateError(res)));
+                }
+                else
+                {
+                    DWHelper.ShowErrorBox(res.message);
+                    server.PushMessage(JsonConvert.SerializeObject(Error.CreateError(res)));
+                }
                 //TODO: toast or console
-                DWHelper.ShowErrorBox(res.message);
-                server.PushMessage(JsonConvert.SerializeObject(Error.CreateError(res)));
             }
 
-            // return success
+            // return success //TODO: maybe make a toast
             server.PushMessage(JsonConvert.SerializeObject(new Formats.Generic.Complete()));
         }
     }

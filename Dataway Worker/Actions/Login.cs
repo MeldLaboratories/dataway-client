@@ -18,7 +18,6 @@ namespace Dataway_Worker.Actions
             
             // attempt login
             res = client.Login(command.Username, command.Password);
-            Console.WriteLine(res.message);
 
             if (res.code != (int)Result.CODE.SUCCESS)
             {
