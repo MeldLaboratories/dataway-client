@@ -4,6 +4,6 @@
     {
         public string type = "result";
         public string origin { get; set; }
-        public int code { get; set; }
+        public int result { get; set; }
     }
 }

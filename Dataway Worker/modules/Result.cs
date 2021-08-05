@@ -30,6 +30,12 @@
         {
             switch (code)
             {
+                case CODE.SOCKET_NOT_CONNECTED:
+                    return "No active connection to Dataway server";
+
+                case CODE.CONNECTION_REFUSED:
+                    return "Dataway server connection refused";
+
                 case CODE.SUCCESS:
                     return "Success";
 
@@ -39,8 +45,12 @@
                 case CODE.DECLINED_TRANSMIT_REQUEST:
                     return "Transmit request was declined by client";
 
-                case CODE.CONNECTION_REFUSED:
-                    return "Connection was refused by the server";
+                case CODE.RECIEVER_OFFLINE:
+                    return "The specified receiver is currently offline";
+
+                case CODE.USER_LOGGED_OUT:
+                    return "You need to login first";
+
 
                 default:
                     return "Unknown result type";

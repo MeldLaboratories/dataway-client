@@ -12,7 +12,7 @@ namespace Dataway_Worker.Actions
 
             Result res = client.SendFile(command.File, filename, command.User);
 
-            if (res.code == (int)Result.CODE.SUCCESS)
+            if (res.code != (int)Result.CODE.SUCCESS)
             {
                 //TODO: toast or console
                 DWHelper.ShowErrorBox(res.message);

@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -6,6 +8,35 @@ namespace Dataway_Worker
 {
     internal class DWHelper
     {
+        /// <summary>
+        /// Simply gets the following value of a specified value in an array.
+        /// </summary>
+        /// <param name="name">Identifier value</param>
+        /// <returns>Returns "" if invalid</returns>
+        public static string GetValueOfSwitch(string name)
+        {
+            var result = "";
+
+            // get commandline args as list
+            var args = new List<string>();
+            args.AddRange(Environment.GetCommandLineArgs());
+
+            // get index of switch
+            var i = args.IndexOf(name);
+
+            // return if not found
+            if (i == -1) return result;
+
+            // check if index is valid
+            if (args.Count == i + 1) return result;
+
+            // get value of switch
+            result = args[i + 1];
+            return result;
+        }
+
+
+
         /// <summary>
         /// Saves a byte array via the Save-File-Dialog
         /// </summary>

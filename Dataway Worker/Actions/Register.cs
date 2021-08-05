@@ -9,7 +9,7 @@ namespace Dataway_Worker.Actions
         {
             Result res = client.Register(command.Username, command.Password);
 
-            if (res.code == (int)Result.CODE.SUCCESS)
+            if (res.code != (int)Result.CODE.SUCCESS)
             {
                 //TODO: toast or console
                 server.PushMessage(JsonConvert.SerializeObject(Error.CreateError(res))); //TODO: toast or console

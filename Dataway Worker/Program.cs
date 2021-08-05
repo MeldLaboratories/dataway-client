@@ -16,34 +16,36 @@ namespace Dataway_Worker
         {
             // set a custom pipe server name by commandline arguments, else fallback to "Dataway"
             var pipename = "Dataway";
-            if (GetValueOfSwitch("--pipe") != "") pipename = GetValueOfSwitch("--pipe");
-            if (GetValueOfSwitch("-p") != "") pipename = GetValueOfSwitch("-p");
+            if (DWHelper.GetValueOfSwitch("--pipe") != "") pipename = DWHelper.GetValueOfSwitch("--pipe");
+            if (DWHelper.GetValueOfSwitch("-p") != "") pipename = DWHelper.GetValueOfSwitch("-p");
             if (pipename != "Dataway") Console.WriteLine("Custom Pipe-Server Name: {0}", pipename);
 
             // start pipe server
             var server = new SimpleNamedPipeServer(pipename);
             server.Start();
 
-            // start dataway client
-            IPAddress ip = Dns.GetHostAddresses("kevin-ortmann.com")[0];
-            var res = client.Connect(ip, 2000); //TODO: IF REFUSED DO SOMETHING
-            if (res.code != 0) Toaster.ShowErrorToast("Error trying to connect to the Dataway server", res.message);
-
             // attempt auto login via config
             var properties = Properties.Settings.Default;
-            if (properties.Password != "" || properties.Username != "")// CHANGE TO && IN RELEASE DEBUG
+            if (properties.Password != "" || properties.Username != "" && false)// CHANGE TO && IN RELEASE DEBUG
             {
                 Console.WriteLine("Attempting auto login with credentials: " + properties.Username + "+" + properties.Password); //DEBUG
                 var command = new Formats.Login.Command()
                 {
-                    Username = properties.Username,
-                    Password = properties.Password
+                    //Username = properties.Username,
+                    //Password = properties.Password
+                    Username = "a",
+                    Password = ""
                 };
 
                 Actions.Login.PerformLogin(server, client, command);
             }
+            // ask for manual login
+            else
+            {
+                Toaster.ShowLoginRegisterToast();
+            }
 
-            Properties.Settings.Default.Username = "c";
+            Properties.Settings.Default.Username = "a";
             Properties.Settings.Default.Password = "";
             Properties.Settings.Default.Save();
 
@@ -51,7 +53,7 @@ namespace Dataway_Worker
             client.OnTransmitRequest += HandleTransmitRequest;
 
             // toast listener
-            Toaster.HandleToastResponses(client);
+            Toaster.HandleToastResponses(client, server);
 
             // TODO: add error handling
             // TODO: add ip switch
@@ -94,32 +96,7 @@ namespace Dataway_Worker
             Process.GetCurrentProcess().WaitForExit();
         }
 
-        /// <summary>
-        /// Simply gets the following value of a specified value in an array.
-        /// </summary>
-        /// <param name="name">Identifier value</param>
-        /// <returns>Returns "" if invalid</returns>
-        private static string GetValueOfSwitch(string name)
-        {
-            var result = "";
 
-            // get commandline args as list
-            var args = new List<string>();
-            args.AddRange(Environment.GetCommandLineArgs());
-
-            // get index of switch
-            var i = args.IndexOf(name);
-
-            // return if not found
-            if (i == -1) return result;
-
-            // check if index is valid
-            if (args.Count == i + 1) return result;
-
-            // get value of switch
-            result = args[i + 1];
-            return result;
-        }
 
         /// <summary>
         /// Handles incoming transmit requests

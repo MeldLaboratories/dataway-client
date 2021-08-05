@@ -1,5 +1,7 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
+using PLib.SimpleNamedPipeWrapper;
 using System;
+using Windows.UI.Notifications;
 
 namespace Dataway_Worker
 {
@@ -43,17 +45,34 @@ namespace Dataway_Worker
         public static void ShowErrorToast(string title, string message)
         {
             new ToastContentBuilder()
-            .AddAppLogoOverride(new Uri(Environment.CurrentDirectory + @"\error.png")) //TODO: error image
+            .AddAppLogoOverride(new Uri(Environment.CurrentDirectory + @"\assets\toastErrorImage.png"))
             .AddText(title)
             .AddText(message)
             .SetToastScenario(ToastScenario.Default)
             .Show();
         }
 
+
+        public static void ShowLoginRegisterToast()
+        {
+            new ToastContentBuilder()
+            .AddArgument("", "dw-auth-invalid")
+            .AddText("Login with your Dataway account")
+            .AddText("Or use register to create a new one")
+            .AddInputTextBox("username", "Username")
+            .AddInputTextBox("password", "Password")
+            .AddButton("Login", ToastActivationType.Background, "dw-auth-login")
+            .AddButton("Register", ToastActivationType.Background, "dw-auth-register")
+            .SetToastScenario(ToastScenario.Reminder)
+            .Show();
+        }
+
+
+
         /// <summary>
         /// Handles all the Dataway Toast responses
         /// </summary>
-        public static void HandleToastResponses(Client client)
+        public static void HandleToastResponses(Client client, SimpleNamedPipeServer server)
         {
             ToastNotificationManagerCompat.OnActivated += toastArgs =>
             {
@@ -81,6 +100,33 @@ namespace Dataway_Worker
                     string message = (string)toastArgs.UserInput["message"];
                     Console.WriteLine("Receiver: " + receiver);
                     Console.WriteLine("Message: " + message);
+                }
+                else if (type == "auth")
+                {
+                    if (result == "invalid") return; //TODO: do something
+
+                    if(result == "login")
+                    {
+                        var command = new Formats.Login.Command()
+                        {
+                            Username = (string)toastArgs.UserInput["username"],
+                            Password = (string)toastArgs.UserInput["password"]
+                        };
+
+                        Actions.Login.PerformLogin(server, client, command);
+                    }
+                    else if(result == "register")
+                    {
+                        var command = new Formats.Register.Command()
+                        {
+                            Username = (string)toastArgs.UserInput["username"],
+                            Password = (string)toastArgs.UserInput["password"]
+                        };
+
+                        Actions.Register.PerformRegister(server, client, command);
+                    }
+
+                   
                 }
             };
         }

@@ -118,6 +118,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.ico" />
+    <None Include="bin\Debug\error.png" />
+    <None Include="Resources\toastErrorImage.ico" />
     <None Include="Resources\app.ico" />
     <None Include="Resources\app.png" />
   </ItemGroup>
