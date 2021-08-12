@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using PLib.SimpleNamedPipeWrapper;
+using Pipes.SimpleNamedPipeWrapper;
 using System.Net;
 using System;
 namespace Dataway_Worker.Actions

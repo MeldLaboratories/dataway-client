@@ -44,6 +44,7 @@ namespace Dataway_Worker
         {
             CONN_RESULT result = CONN_RESULT.CONNECTION_SUCCESSFUL;
 
+            #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
             Task.Run(async () =>
             {
                 try
@@ -63,6 +64,7 @@ namespace Dataway_Worker
                     }
                 }
             }).Wait();
+            #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
             //CONNECTION SUCCESSFUL
             if (result == CONN_RESULT.CONNECTION_SUCCESSFUL)

@@ -45,9 +45,6 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PLib">
-      <HintPath>D:\Projekte\C#\PToys\PToys\bin\Debug\PLib.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -81,6 +78,15 @@
     <Compile Include="Helper\Debug.cs" />
     <Compile Include="Helper\Send.cs" />
     <Compile Include="modules\PipeSpawner.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\IO\PipeStreamReader.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\IO\PipeStreamWrapper.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\IO\PipeStreamWriter.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\MessageObjects\BasicMessageObject.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\NamedPipeClient.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\NamedPipeConnection.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\NamedPipeServer.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\PipeExceptionEventHandler.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\Threading\Worker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -88,6 +94,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Pipes\SimpleNamedPipeWrapper\SimpleNamedPipeClient.cs" />
+    <Compile Include="Pipes\SimpleNamedPipeWrapper\SimpleNamedPipeServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

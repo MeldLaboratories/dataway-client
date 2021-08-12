@@ -38,9 +38,6 @@
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PLib">
-      <HintPath>D:\Projekte\C#\PToys\PToys\bin\Debug\PLib.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -84,6 +81,17 @@
     <Compile Include="Formats\Login\Command.cs" />
     <Compile Include="Formats\Register\Command.cs" />
     <Compile Include="Formats\Send\Command.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\IO\PipeStreamReader.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\IO\PipeStreamWrapper.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\IO\PipeStreamWriter.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\MessageObjects\BasicMessageObject.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\NamedPipeClient.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\NamedPipeConnection.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\NamedPipeServer.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\PipeExceptionEventHandler.cs" />
+    <Compile Include="Pipes\NamedPipeWrapper\Threading\Worker.cs" />
+    <Compile Include="Pipes\SimpleNamedPipeWrapper\SimpleNamedPipeClient.cs" />
+    <Compile Include="Pipes\SimpleNamedPipeWrapper\SimpleNamedPipeServer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Modules\Result.cs" />

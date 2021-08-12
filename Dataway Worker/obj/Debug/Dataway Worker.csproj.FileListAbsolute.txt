@@ -54,8 +54,6 @@ C:\Users\malte\Desktop\dataway-client\Dataway Worker\bin\Debug\NamedPipeWrapper.
 C:\Users\malte\Desktop\dataway-client\Dataway Worker\bin\Debug\NamedPipeWrapper.pdb
 C:\Users\malte\Desktop\dataway-client\Dataway Worker\bin\Debug\Newtonsoft.Json.dll
 C:\Users\malte\Desktop\dataway-client\Dataway Worker\bin\Debug\System.ValueTuple.dll
-C:\Users\malte\Desktop\dataway-client\Dataway Worker\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-C:\Users\malte\Desktop\dataway-client\Dataway Worker\bin\Debug\PLib.pdb
 C:\Users\malte\Desktop\dataway-client\Dataway Worker\obj\Debug\Dataway Worker.csproj.CopyComplete
 D:\Stash\Code\Dataway\dataway-client\Dataway Worker\obj\Debug\Dataway_Worker.Properties.Resources.resources
 D:\Stash\Code\Dataway\dataway-client\Dataway Worker\obj\Debug\Dataway Worker.csproj.GenerateResource.cache

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
-using PLib.SimpleNamedPipeWrapper;
+using Pipes.SimpleNamedPipeWrapper;
 using System;
 using Windows.UI.Notifications;
 

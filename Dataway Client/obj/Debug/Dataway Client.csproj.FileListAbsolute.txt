@@ -41,3 +41,15 @@ T:\Code\Dataway\dataway-client\Dataway Client\obj\Debug\Dataway Client.csproj.Co
 T:\Code\Dataway\dataway-client\Dataway Client\obj\Debug\Dataway Client.csproj.CopyComplete
 T:\Code\Dataway\dataway-client\Dataway Client\obj\Debug\dw.exe
 T:\Code\Dataway\dataway-client\Dataway Client\obj\Debug\dw.pdb
+C:\Users\malte\Desktop\dataway-client\Dataway Client\obj\Debug\Dataway Client.csproj.AssemblyReference.cache
+C:\Users\malte\Desktop\dataway-client\Dataway Client\obj\Debug\Dataway Client.csproj.CoreCompileInputs.cache
+C:\Users\malte\Desktop\dataway-client\Dataway Client\obj\Debug\dw.exe
+C:\Users\malte\Desktop\dataway-client\Dataway Client\obj\Debug\dw.pdb
+C:\Users\malte\Desktop\dataway-client\Dataway Client\bin\Debug\dw.exe.config
+C:\Users\malte\Desktop\dataway-client\Dataway Client\bin\Debug\dw.exe
+C:\Users\malte\Desktop\dataway-client\Dataway Client\bin\Debug\dw.pdb
+C:\Users\malte\Desktop\dataway-client\Dataway Client\bin\Debug\CommandLine.dll
+C:\Users\malte\Desktop\dataway-client\Dataway Client\bin\Debug\Newtonsoft.Json.dll
+C:\Users\malte\Desktop\dataway-client\Dataway Client\bin\Debug\CommandLine.xml
+C:\Users\malte\Desktop\dataway-client\Dataway Client\bin\Debug\Newtonsoft.Json.xml
+C:\Users\malte\Desktop\dataway-client\Dataway Client\obj\Debug\Dataway Client.csproj.CopyComplete

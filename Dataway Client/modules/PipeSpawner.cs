@@ -1,4 +1,4 @@
-﻿using PLib.SimpleNamedPipeWrapper;
+﻿using Pipes.SimpleNamedPipeWrapper;
 
 namespace Dataway_Client
 {
