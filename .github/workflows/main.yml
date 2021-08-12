@@ -12,7 +12,7 @@ on:
 
 jobs:
   # test worker
-  Dataway Worker:
+  Dataway_Worker:
     # The type of runner that the job will run on
     runs-on: windows-latest
 
@@ -36,7 +36,7 @@ jobs:
         run: msbuild "Dataway Worker\\Dataway Worker.csproj" /p:Configuration=Release /p:GeneratePackageOnBuild=false
         
   # test client
-  Dataway Client:
+  Dataway_Client:
     # The type of runner that the job will run on
     runs-on: windows-latest
 
